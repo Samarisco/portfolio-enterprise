@@ -3,6 +3,7 @@
 ## Stack Oficial
 
 Frontend:
+
 - Next.js
 - TypeScript
 - TailwindCSS
@@ -10,11 +11,13 @@ Frontend:
 - shadcn/ui
 
 Backend:
+
 - NestJS
 - PostgreSQL
 - Prisma
 
 Infrastructure:
+
 - Docker
 - GitHub Actions
 - Vercel
