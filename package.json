@@ -1,14 +1,23 @@
 {
   "name": "portfolio-enterprise",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
+  "type": "module",
+  "description": "Enterprise full stack portfolio monorepo",
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -16,7 +25,12 @@
       "onFail": "download"
     }
   },
-  "type": "module",
-  "private":true
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "eslint": "^10.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
+  }
 }
-
