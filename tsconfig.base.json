@@ -1,23 +1,25 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["DOM", "ES2022"],
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
-      "@repo/ui/*": ["packages/ui/*"],
-      "@repo/types/*": ["packages/types/*"],
-      "@repo/utils/*": ["packages/utils/*"]
+      "@portfolio/ui/*": ["packages/ui/src/*"],
+      "@portfolio/types": ["packages/types/src/index.ts"],
+      "@portfolio/utils": ["packages/utils/src/index.ts"]
     }
   }
 }
