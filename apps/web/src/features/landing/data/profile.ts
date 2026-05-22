@@ -60,7 +60,7 @@ export const profile = {
       summary:
         "Portfolio full stack construido como producto SaaS: frontend premium, API modular, Prisma, Docker, testing basico, CI y documentacion tecnica. El objetivo es demostrar criterio de ingenieria mas alla de una landing estatica.",
       links: {
-        github: "https://github.com/tu-usuario/portfolio-enterprise",
+        github: "https://github.com/samarisco/portfolio-enterprise",
       },
     },
     {
@@ -70,7 +70,7 @@ export const profile = {
       summary:
         "Backend modular orientado a portfolios premium con visualización 3D interactiva, gestión dinámica de proyectos y arquitectura escalable para experiencias web modernas y cinematográficas.",
       links: {
-        github: "https://github.com/tu-usuario",
+        github: "https://github.com/samarisco",
       },
     },
     {
@@ -80,7 +80,7 @@ export const profile = {
       summary:
         "Interfaz tipo dashboard para practicar componentes reutilizables, estados de UI, responsive design, accesibilidad basica y pruebas unitarias sobre logica de interfaz.",
       links: {
-        github: "https://github.com/tu-usuario",
+        github: "https://github.com/samarisco",
       },
     },
   ],
