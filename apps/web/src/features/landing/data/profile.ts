@@ -3,7 +3,7 @@ export const profile = {
     name: "Juan Samael Amaral Bravo",
     role: "Ingeniero en Sistemas Computacionales | Soporte TI | Infraestructura | IA ",
     location: "Apaseo el Grande, Guanajuato, Mexico",
-    availability: "Buscando oportunidades Jr., trainee o entry-level en frontend",
+    availability: "Buscando oportunidades Jr., trainee o entry-level en frontend o desarrollo full stack con enfoque en IA aplicada y automatización.",
     headline: "Frontend Developer | IA & Automatización",
     summary:
       "Profesional en formación en Ingeniería en Sistemas Computacionales con experiencia en soporte técnico corporativo, infraestructura TI y transformación digital en entornos empresariales e industriales. He participado en la resolución de incidencias, mantenimiento de sistemas, administración de equipos y optimización de procesos tecnológicos, desarrollando una sólida capacidad para adaptarme a distintos escenarios técnicos y operativos. Apasionado por el desarrollo frontend, la automatización y la inteligencia artificial aplicada a soluciones reales, con interés en crear experiencias digitales modernas, eficientes y funcionales. Me caracterizo por un enfoque autodidacta, pensamiento analítico y orientación a la resolución de problemas complejos mediante el uso de tecnologías innovadoras.",
