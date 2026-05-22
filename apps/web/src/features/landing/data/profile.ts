@@ -70,7 +70,7 @@ export const profile = {
       summary:
         "Backend modular orientado a portfolios premium con visualización 3D interactiva, gestión dinámica de proyectos y arquitectura escalable para experiencias web modernas y cinematográficas.",
       links: {
-        github: "https://github.com/samarisco",
+        github: "https://github.com/Samarisco/designers-portfolio",
       },
     },
     {
