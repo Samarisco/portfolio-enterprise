@@ -18,16 +18,16 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-enterprise.local"),
   title: {
-    default: "Samael Amaral | Full Stack Developer Jr.",
+    default: "Samael Amaral | Frontend Developer Jr.",
     template: "%s | Samael Amaral",
   },
   description:
-    "Portfolio de Samael Amaral, Full Stack Developer Jr. enfocado en TypeScript, Next.js, NestJS, APIs REST, PostgreSQL, automatizacion e IA aplicada.",
+    "Portfolio de Samael Amaral, Frontend Developer Jr. enfocado en TypeScript, Next.js, NestJS, APIs REST, PostgreSQL, automatizacion e IA aplicada.",
   applicationName: "Samael Amaral Portfolio",
   authors: [{ name: "Samael Amaral" }],
   keywords: [
     "Samael Amaral",
-    "Full Stack Developer Jr",
+    "Frontend Developer Jr",
     "Entry Level Developer",
     "Next.js",
     "NestJS",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     "Apaseo el Grande Guanajuato",
   ],
   openGraph: {
-    title: "Samael Amaral | Full Stack Developer Jr.",
+    title: "Samael Amaral | Frontend Developer Jr.",
     description:
       "Portfolio profesional con proyectos full stack, APIs REST, frontend responsive, bases de datos y roadmap tecnico.",
     type: "website",
