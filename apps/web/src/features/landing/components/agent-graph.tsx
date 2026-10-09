@@ -36,6 +36,19 @@ function agentPosition(index: number, total: number): Point {
   };
 }
 
+/** Estallido dentado detrás del coordinador: picos alternos alrededor del centro. */
+function burstPoints(spikes: number, outer: number, inner: number): string {
+  return Array.from({ length: spikes * 2 }, (_, index) => {
+    const radius = index % 2 === 0 ? outer : inner;
+    const angle = (Math.PI * index) / spikes - Math.PI / 2;
+    const x = Math.round((CENTER + radius * Math.cos(angle)) * 100) / 100;
+    const y = Math.round((CENTER + radius * Math.sin(angle)) * 100) / 100;
+    return `${x},${y}`;
+  }).join(" ");
+}
+
+const BURST = burstPoints(14, 15, 10.5);
+
 interface AgentGraphProps {
   readonly system: LandingAgentSystem;
 }
@@ -107,6 +120,9 @@ export function AgentGraph({ system }: AgentGraphProps) {
         <svg className="graph__wires" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
           <circle className="graph__orbit" cx={CENTER} cy={CENTER} r={RADIUS} />
           <circle className="graph__orbit graph__orbit--inner" cx={CENTER} cy={CENTER} r={RADIUS / 2} />
+          <g className="graph__burst-spin">
+            <polygon className="graph__burst" data-active={isDelivery ? "true" : undefined} points={BURST} />
+          </g>
 
           {positions.map((point, index) => (
             <line
@@ -159,7 +175,7 @@ export function AgentGraph({ system }: AgentGraphProps) {
           onFocus={() => setHovered(deliveryStep)}
           onBlur={() => setHovered(null)}
         >
-          {coordinator.id}
+          <span>{coordinator.id}</span>
         </button>
 
         {agents.map((agent, index) => (
@@ -179,7 +195,7 @@ export function AgentGraph({ system }: AgentGraphProps) {
             onFocus={() => setHovered(index)}
             onBlur={() => setHovered(null)}
           >
-            {agent.id}
+            <span>{agent.id}</span>
           </button>
         ))}
       </div>

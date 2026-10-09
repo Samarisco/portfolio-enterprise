@@ -4,23 +4,31 @@
 @source "../**/*.{ts,tsx}";
 
 /*
- * Tokens del sitio (design doc §3.2, "sistema en marcha").
+ * Tokens del sitio (design doc §3.2, "menú en frío").
  * Claro por defecto; oscuro con `prefers-color-scheme` salvo que el visitante elija
  * otro tema (`data-theme` en <html>, ver shared/lib/theme.ts).
- * Contraste AA: --ink, --muted, --accent y --warn ≥ 4.5:1 sobre --bg y --surface.
+ * Contraste AA verificado: texto ≥ 4.5:1 sobre --bg, --surface y cada relleno con su `--on-*`.
  */
 :root {
   color-scheme: light;
-  --bg: #edeff4; /* niebla fría */
-  --surface: #f8f9fc;
-  --ink: #0d1020; /* tinta índigo */
-  --muted: #4a5068;
-  --line: #cdd2de;
-  --line-strong: #9aa1b5;
-  --accent: #3a28e0; /* ultramar */
-  --accent-soft: rgba(58, 40, 224, 0.1);
-  --on-accent: #ffffff;
-  --warn: #b03516; /* bermellón: prototipo */
+  --bg: #f2f5fb;
+  --surface: #ffffff;
+  --ink: #060914;
+  --muted: #465069;
+  --line: #cbd3e3;
+  --line-strong: #8e99b3;
+  --accent: #0f3bea; /* texto y enlaces */
+  --pop: #00cff5; /* cian eléctrico, solo como relleno */
+  --on-pop: #060914;
+  --volt: #1f4bff; /* azul eléctrico */
+  --on-volt: #ffffff;
+  --violet: #5a23d8;
+  --on-violet: #ffffff;
+  --plane: #060914; /* plano de contraste extremo: siempre el opuesto al fondo */
+  --on-plane: #f2f5fb;
+  --plane-accent: #00cff5;
+  --plane-muted: #b4bdd3;
+  --halftone: rgba(31, 75, 255, 0.32);
 
   /* Alias que usan /cv y packages/ui. */
   --background: var(--bg);
@@ -28,41 +36,57 @@
   --border: var(--line);
   --surface-strong: #ffffff;
   --accent-strong: var(--accent);
-  --signal: var(--warn);
+  --signal: var(--violet);
   --danger: #c62828;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #080a18;
-    --surface: #10132b;
-    --ink: #e9ebf7;
-    --muted: #a3a9c6;
-    --line: #262a4d;
-    --line-strong: #474d7a;
-    --accent: #a596ff;
-    --accent-soft: rgba(165, 150, 255, 0.12);
-    --on-accent: #0b0b22;
-    --warn: #ff9271;
-    --surface-strong: #151935;
+    --bg: #05070f;
+    --surface: #0d1226;
+    --ink: #eef3ff;
+    --muted: #a7b2cf;
+    --line: #1e2742;
+    --line-strong: #3e4b73;
+    --accent: #3fe3ff;
+    --pop: #22e1ff;
+    --on-pop: #05070f;
+    --volt: #3d63ff;
+    --on-volt: #ffffff;
+    --violet: #b49cff;
+    --on-violet: #05070f;
+    --plane: #eef3ff;
+    --on-plane: #05070f;
+    --plane-accent: #1f3fe0;
+    --plane-muted: #3b4560;
+    --halftone: rgba(34, 225, 255, 0.28);
+    --surface-strong: #121a35;
     --danger: #ff8a80;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #080a18;
-  --surface: #10132b;
-  --ink: #e9ebf7;
-  --muted: #a3a9c6;
-  --line: #262a4d;
-  --line-strong: #474d7a;
-  --accent: #a596ff;
-  --accent-soft: rgba(165, 150, 255, 0.12);
-  --on-accent: #0b0b22;
-  --warn: #ff9271;
-  --surface-strong: #151935;
+  --bg: #05070f;
+  --surface: #0d1226;
+  --ink: #eef3ff;
+  --muted: #a7b2cf;
+  --line: #1e2742;
+  --line-strong: #3e4b73;
+  --accent: #3fe3ff;
+  --pop: #22e1ff;
+  --on-pop: #05070f;
+  --volt: #3d63ff;
+  --on-volt: #ffffff;
+  --violet: #b49cff;
+  --on-violet: #05070f;
+  --plane: #eef3ff;
+  --on-plane: #05070f;
+  --plane-accent: #1f3fe0;
+  --plane-muted: #3b4560;
+  --halftone: rgba(34, 225, 255, 0.28);
+  --surface-strong: #121a35;
   --danger: #ff8a80;
 }
 
@@ -86,8 +110,8 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--pop);
+  color: var(--on-pop);
 }
 
 a {

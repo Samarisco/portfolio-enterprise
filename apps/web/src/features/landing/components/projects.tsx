@@ -25,7 +25,12 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, featured = false }: ProjectCardProps) {
-  const statusClass = project.status === "Prototipo" ? "status status--warn" : "status";
+  const statusClass =
+    project.status === "Prototipo"
+      ? "status status--warn"
+      : project.status === "En mejora"
+        ? "status status--outline"
+        : "status";
 
   return (
     <article className={`project${featured ? " project--featured" : ""}`}>

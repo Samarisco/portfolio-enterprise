@@ -1,20 +1,22 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import {
-  Bricolage_Grotesque,
-  Instrument_Sans,
-  Inter,
-  JetBrains_Mono,
-  Martian_Mono,
-} from "next/font/google";
+import { Anton, DM_Serif_Display, Instrument_Sans, Inter, JetBrains_Mono, Martian_Mono } from "next/font/google";
 import { themeInitScript } from "@/shared/lib/theme";
 import "./globals.css";
 
-/* Landing: titulares, texto y datos. */
-const display = Bricolage_Grotesque({
+/* Landing: titulares de impacto (Anton), recortes de letras (DM Serif Display), texto y datos. */
+const display = Anton({
   subsets: ["latin"],
+  weight: "400",
   variable: "--font-display",
-  axes: ["opsz", "wdth"],
+  display: "swap",
+});
+
+const cutout = DM_Serif_Display({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-cutout",
   display: "swap",
 });
 
@@ -46,7 +48,7 @@ const mono = JetBrains_Mono({
   preload: false,
 });
 
-const fontVariables = [display, body, data, sans, mono].map((font) => font.variable).join(" ");
+const fontVariables = [display, cutout, body, data, sans, mono].map((font) => font.variable).join(" ");
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-enterprise.local"),
@@ -87,8 +89,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   colorScheme: "dark light",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#edeff4" },
-    { media: "(prefers-color-scheme: dark)", color: "#080a18" },
+    { media: "(prefers-color-scheme: light)", color: "#f2f5fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#05070f" },
   ],
 };
 

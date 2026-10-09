@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight, Download, FileText, Mail } from "lucide-react";
 import { perfil } from "../data/perfil";
+import { Ransom, Sparkle } from "./decor";
 
 interface ContactLink {
   readonly label: string;
@@ -31,9 +32,10 @@ export function Contact() {
 
   return (
     <section id="contacto" className="contact" aria-labelledby="contacto-titulo">
+      <Sparkle className="contact__spark" />
       <div className="contact__head">
-        <h2 id="contacto-titulo" className="contact__title">
-          Contacto
+        <h2 id="contacto-titulo" className="section__title">
+          <Ransom text="Contacto" />
         </h2>
         <p className="contact__line">¿Un proceso que automatizar o un sistema que montar? Escríbeme.</p>
       </div>
@@ -47,8 +49,10 @@ export function Contact() {
               {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
             >
               {srPrefix ? <span className="sr-only">{srPrefix}</span> : null}
-              <span>{label}</span>
-              <Icon className="chip__icon" aria-hidden="true" />
+              <span className="chip__label">
+                <span>{label}</span>
+                <Icon className="chip__icon" aria-hidden="true" />
+              </span>
             </a>
           </li>
         ))}
