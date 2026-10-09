@@ -35,9 +35,45 @@ export interface CvEducation {
   readonly detail: string;
 }
 
+export type CvLocale = "es" | "en";
+
+export interface CvLabels {
+  readonly toolbar: string;
+  readonly back: string;
+  readonly print: string;
+  readonly download: string;
+  readonly languageSwitcher: string;
+  readonly sections: {
+    readonly summary: string;
+    readonly experience: string;
+    readonly projects: string;
+    readonly skills: string;
+    readonly education: string;
+    readonly languages: string;
+  };
+}
+
 export interface CvData {
+  readonly locale: CvLocale;
+  /** Valor del atributo `lang` del contenedor del CV. */
+  readonly lang: string;
+  /** Nombre del idioma en su propio idioma (descripción del enlace del selector). */
+  readonly languageName: string;
+  /** Texto visible del selector ES/EN. */
+  readonly languageCode: string;
+  /** Locale de Open Graph (p. ej. `es_MX`). */
+  readonly ogLocale: string;
+  /** Título de la página (se completa con la plantilla del layout). */
+  readonly pageTitle: string;
+  /** Descripción para la metadata de la página. */
+  readonly pageDescription: string;
+  readonly path: string;
+  readonly pdfUrl: string;
+  readonly labels: CvLabels;
   readonly name: string;
   readonly location: string;
+  /** Nota opcional junto a la ubicación (p. ej. disponibilidad para reubicarse). */
+  readonly locationNote?: string;
   readonly email: string;
   readonly links: readonly CvLink[];
   readonly headline: string;
@@ -56,6 +92,30 @@ export const CV_PDF_URL = "/CV-Samael-Amaral.pdf";
  * Contenido del CV. Página pública: no incluir teléfono ni otros datos personales sensibles.
  */
 export const cv: CvData = {
+  locale: "es",
+  lang: "es-MX",
+  languageName: "Español",
+  languageCode: "ES",
+  ogLocale: "es_MX",
+  pageTitle: "CV",
+  pageDescription: "Currículum de Juan Samael Amaral Bravo: Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA.",
+  path: "/cv",
+  pdfUrl: CV_PDF_URL,
+  labels: {
+    toolbar: "Acciones del CV",
+    back: "Volver al portafolio",
+    print: "Imprimir",
+    download: "Descargar PDF",
+    languageSwitcher: "Idioma del CV",
+    sections: {
+      summary: "Perfil",
+      experience: "Experiencia",
+      projects: "Proyectos",
+      skills: "Habilidades",
+      education: "Educación y certificaciones",
+      languages: "Idiomas",
+    },
+  },
   name: "Juan Samael Amaral Bravo",
   location: "Apaseo el Grande, Gto., México",
   email: "Amaral.Samael@Outlook.com",
