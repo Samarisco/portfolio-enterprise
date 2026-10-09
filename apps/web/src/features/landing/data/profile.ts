@@ -10,7 +10,7 @@ export const profile = {
     email: "Amaral.Samael@Outlook.com",
     githubUrl: "https://github.com/Samarisco",
     linkedinUrl: "https://www.linkedin.com/in/samaelamaral",
-    resumeUrl: "https://samael-dev.vercel.app",
+    resumeUrl: "/CV-Samael-Amaral.pdf",
   },
   navigation: [
     { label: "Experiencia", href: "#experience" },
