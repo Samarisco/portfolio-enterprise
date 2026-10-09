@@ -4,6 +4,7 @@ import {
   findPhoneLikeSequences,
   stripVectorGeometry,
 } from "../../../shared/lib/forbidden-content";
+import { homeMetadata, siteMetadata } from "../../../shared/lib/metadata";
 import { siteConfig } from "../../../shared/lib/site";
 import { CV_PDF_URL, cv } from "../../cv/data/cv";
 import { CV_EN_PDF_URL, cvEn } from "../../cv/data/cv.en";
@@ -17,6 +18,7 @@ import { SKILL_LEVELS, perfil } from "./perfil";
 const publishedContent = {
   landing: JSON.stringify(perfil),
   site: JSON.stringify(siteConfig),
+  metadata: JSON.stringify([siteMetadata, homeMetadata]),
   cv: JSON.stringify(cv),
   cvEn: JSON.stringify(cvEn),
 } as const;
@@ -83,6 +85,12 @@ describe("contenido publicado: datos prohibidos", () => {
   it("la landing y la configuración del sitio no mencionan Frappe (decisión del 9 oct 2026)", () => {
     expect(publishedContent.landing).not.toMatch(/Frappe|ERPNext/i);
     expect(publishedContent.site).not.toMatch(/Frappe|ERPNext/i);
+  });
+
+  it("la metadata usa el posicionamiento nuevo, sin Frappe ni el título viejo", () => {
+    expect(publishedContent.metadata).not.toMatch(/Frappe|ERPNext|Frontend Developer/i);
+    expect(siteMetadata.openGraph?.locale).toBe("es_MX");
+    expect(String(siteMetadata.metadataBase)).toBe("https://portfolio-enterprise-web.vercel.app/");
   });
 });
 

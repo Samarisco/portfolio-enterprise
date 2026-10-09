@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Anton, Instrument_Sans, Inter, JetBrains_Mono, Martian_Mono } from "next/font/google";
+import { SITE_LANG, siteMetadata } from "@/shared/lib/metadata";
 import { themeInitScript } from "@/shared/lib/theme";
 import "./globals.css";
 
@@ -42,39 +43,7 @@ const mono = JetBrains_Mono({
 
 const fontVariables = [display, body, data, sans, mono].map((font) => font.variable).join(" ");
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio-enterprise.local"),
-  title: {
-    default: "Samael Amaral | Frontend Developer Jr.",
-    template: "%s | Samael Amaral",
-  },
-  description:
-    "Portfolio de Samael Amaral, Frontend Developer Jr. enfocado en TypeScript, Next.js, NestJS, APIs REST, PostgreSQL, automatizacion e IA aplicada.",
-  applicationName: "Samael Amaral Portfolio",
-  authors: [{ name: "Samael Amaral" }],
-  keywords: [
-    "Samael Amaral",
-    "Frontend Developer Jr",
-    "Entry Level Developer",
-    "Next.js",
-    "NestJS",
-    "TypeScript",
-    "PostgreSQL",
-    "Prisma",
-    "Apaseo el Grande Guanajuato",
-  ],
-  openGraph: {
-    title: "Samael Amaral | Frontend Developer Jr.",
-    description:
-      "Portfolio profesional con proyectos full stack, APIs REST, frontend responsive y bases de datos.",
-    type: "website",
-    locale: "en_US",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata: Metadata = siteMetadata;
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -88,7 +57,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={fontVariables} suppressHydrationWarning>
+    <html lang={SITE_LANG} className={fontVariables} suppressHydrationWarning>
       <head>
         {/* Aplica el tema guardado antes del primer pintado (sin parpadeo). */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
