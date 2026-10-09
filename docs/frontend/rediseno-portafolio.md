@@ -4,7 +4,7 @@
 |---|---|
 | Autor | `lead` (agente), para Samael Amaral |
 | Revisores | Samael Amaral (responsable) · `seguridad` (datos personales publicados, dependencia nueva de pruebas) |
-| Estado | Aprobado con decisiones de §11 (dominio pendiente) |
+| Estado | Aprobado con decisiones de §11  |
 | Issue | (por crear) |
 | Rama base | `feat/cv-imprimible` (PR #1, sin merge todavía) |
 | Fuente de verdad | `C:\dev\datos\perfil.md` (actualizado el 2026-10-09) |
@@ -309,8 +309,8 @@ retrasa, el contenido correcto puede salir solo.
 
 ## 11. Decisiones (9 oct 2026)
 
-1. **Dominio canónico**: el link actual no es `https://samael-dev.vercel.app`. **Pendiente**: Samael
-   pasa el dominio correcto. Bloquea solo el PR 2 (metadata/SEO).
+1. **Dominio canónico**: `https://portfolio-enterprise-web.vercel.app` (no `samael-dev.vercel.app`).
+   Se usa en `metadataBase`, canonical y sitemap (PR 2).
 2. **Periodo del Intern**: se publica **"ago 2026 – oct 2026"**, como en `perfil.md`. El puesto
    cambia en noviembre y se actualiza entonces. La prueba de consistencia con `cv.ts` no aplica
    mientras el CV del PR #1 diga "actual".
