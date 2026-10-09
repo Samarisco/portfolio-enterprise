@@ -14,7 +14,7 @@ const navigation: readonly NavigationItem[] = [
 export const siteConfig = {
   name: "Samael Amaral",
   description:
-    "Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA. Busco roles de especialista en sistemas, soporte N2, automatización TI y desarrollo Frappe/ERPNext.",
+    "Sistemas, automatización e IA aplicada. Busco roles de especialista en sistemas, soporte N2, automatización TI y desarrollo asistido por IA.",
   /** Única fuente de la navegación de la landing. */
   navigation,
 } as const;

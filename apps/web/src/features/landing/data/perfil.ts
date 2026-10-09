@@ -19,8 +19,10 @@ export interface LandingPersonal {
   readonly name: string;
   /** Nombre completo, para metadata. */
   readonly fullName: string;
-  /** Titular de posicionamiento (no es un puesto). */
+  /** Titular de posicionamiento (no es un puesto). Es `headlineLines` unido con espacios. */
   readonly headline: string;
+  /** El titular partido en las líneas del hero; la última va resaltada. */
+  readonly headlineLines: readonly string[];
   /** Puesto confirmado que se muestra bajo el titular. */
   readonly currentRole: string;
   readonly summary: string;
@@ -75,8 +77,6 @@ export interface LandingSkill {
   readonly area: string;
   /** Nivel literal de `perfil.md`. */
   readonly level: SkillLevel;
-  /** Abreviatura visual del área (decorativa). */
-  readonly code: string;
 }
 
 export interface LandingEducation {
@@ -87,11 +87,30 @@ export interface LandingEducation {
   readonly courses?: readonly string[];
 }
 
+export interface LandingAgent {
+  /** Nombre del agente tal como se llama en el sistema. */
+  readonly id: string;
+  /** Qué hace dentro del flujo, en una frase. */
+  readonly role: string;
+}
+
+/** Sistema multiagente que Samael diseñó; es el visual del hero. */
+export interface LandingAgentSystem {
+  readonly title: string;
+  readonly caption: string;
+  readonly coordinator: LandingAgent;
+  /** Agentes especialistas en el orden en que reciben el trabajo. */
+  readonly agents: readonly LandingAgent[];
+  /** Lo que sale del ciclo. */
+  readonly output: string;
+}
+
 export interface LandingProfile {
   readonly personal: LandingPersonal;
   readonly experience: readonly LandingExperience[];
   readonly projects: readonly LandingProject[];
   readonly skills: readonly LandingSkill[];
+  readonly agentSystem: LandingAgentSystem;
   readonly aiWorkflow: string;
   readonly education: readonly LandingEducation[];
   readonly languages: string;
@@ -101,12 +120,13 @@ export const perfil: LandingProfile = {
   personal: {
     name: "Samael Amaral",
     fullName: "Juan Samael Amaral Bravo",
-    headline: "Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA",
+    headline: "Sistemas, automatización e IA aplicada",
+    headlineLines: ["Sistemas,", "automatización", "e IA aplicada"],
     currentRole: "IT Support, Development & Automation Intern · Fast Market · ago 2026 – oct 2026",
     summary:
-      "Ingeniero en Sistemas Computacionales. En Fast Market creé el área de sistemas: el sistema de tickets sobre Frappe, las alertas automatizadas y la capacitación del equipo.",
+      "Ingeniero en Sistemas Computacionales. En Fast Market creé el área de sistemas: el sistema interno de tickets e incidencias, las alertas automatizadas y la capacitación del equipo.",
     targetRoles:
-      "Busco roles de especialista en sistemas, soporte N2, automatización TI y desarrollo Frappe/ERPNext.",
+      "Busco roles de especialista en sistemas, soporte N2, automatización TI y desarrollo asistido por IA.",
     location: "Apaseo el Grande, Guanajuato, México",
     availability: "Disponible para cambio de residencia · híbrido o presencial",
     email: "Amaral.Samael@Outlook.com",
@@ -125,7 +145,7 @@ export const perfil: LandingProfile = {
       period: "ago 2026 – oct 2026",
       summary: "Único responsable de crear y operar el área de sistemas.",
       achievements: [
-        "Diseñé y desarrollé solo el sistema interno de tickets e incidencias sobre Frappe, adaptado a la operación y pensado para crecer. Está en uso.",
+        "Diseñé y desarrollé solo el sistema interno de tickets e incidencias, adaptado a la operación y pensado para crecer. Está en uso.",
         "Implementé alertas automatizadas a partir de APIs y monitoreo de sistemas y servicios.",
         "Diseñé el sistema de ingeniería multiagente para programar con IA: coordinador más agentes de liderazgo técnico, backend, frontend, QA, seguridad y DevOps, con normas, hooks y flujo de PR.",
         "Creé el programa de capacitación en sistemas (manuales, videos y guías) y los reportes de tickets.",
@@ -188,21 +208,36 @@ export const perfil: LandingProfile = {
     {
       area: "Desarrollo asistido por IA y diseño de flujos multiagente (Claude Code, OpenCode)",
       level: "Avanzado",
-      code: "IA",
     },
-    { area: "Soporte TI, Active Directory, redes, respaldo y recuperación", level: "Intermedio", code: "TI" },
-    { area: "Frappe", level: "Intermedio", code: "FR" },
-    { area: "Docker, Git/GitHub, PowerShell, Windows 11", level: "Intermedio", code: "DV" },
-    { area: "Python (OpenCV)", level: "Intermedio", code: "PY" },
+    { area: "Soporte TI, Active Directory, redes, respaldo y recuperación", level: "Intermedio" },
+    { area: "Docker, Git/GitHub, PowerShell, Windows 11", level: "Intermedio" },
+    { area: "Python (OpenCV)", level: "Intermedio" },
     {
       area: "JavaScript/TypeScript, React, Node/Express",
       level: "Intermedio para leer, depurar e integrar; básico para escribir desde cero sin IA",
-      code: "JS",
     },
-    { area: "SQL (PostgreSQL, SQLite)", level: "Intermedio para leer, depurar e integrar", code: "DB" },
-    { area: "MongoDB", level: "Básico", code: "MG" },
-    { area: "Java / Spring Boot", level: "Básico (cursos)", code: "JV" },
+    { area: "SQL (PostgreSQL, SQLite)", level: "Intermedio para leer, depurar e integrar" },
+    { area: "MongoDB", level: "Básico" },
+    { area: "Java / Spring Boot", level: "Básico (cursos)" },
   ],
+  agentSystem: {
+    title: "Mi sistema de ingeniería multiagente",
+    caption:
+      "Lo diseñé para programar con IA: un coordinador reparte cada pedido entre agentes especialistas, con normas, hooks y flujo de PR.",
+    coordinator: {
+      id: "coordinador",
+      role: "Recibe el pedido, reparte el trabajo y lo entrega como pull request.",
+    },
+    agents: [
+      { id: "lead", role: "Liderazgo técnico: arma el plan." },
+      { id: "backend", role: "Implementa APIs y datos." },
+      { id: "frontend", role: "Implementa la interfaz." },
+      { id: "devops", role: "Prepara infraestructura y despliegue." },
+      { id: "qa", role: "Verifica el resultado al final." },
+      { id: "seguridad", role: "Revisa permisos, datos y dependencias." },
+    ],
+    output: "pull request",
+  },
   aiWorkflow:
     "Cómo trabajo con IA: entiendo los procesos, sé qué pedir en cada situación, comprendo cada solución y corrijo a la IA cuando se equivoca.",
   education: [

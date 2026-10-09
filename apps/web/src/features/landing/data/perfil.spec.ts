@@ -79,15 +79,18 @@ describe("contenido publicado: datos prohibidos", () => {
   it("la landing no publica cifras de usuarios", () => {
     expect(publishedContent.landing).not.toMatch(/\d+\s*usuarios/i);
   });
+
+  it("la landing y la configuración del sitio no mencionan Frappe (decisión del 9 oct 2026)", () => {
+    expect(publishedContent.landing).not.toMatch(/Frappe|ERPNext/i);
+    expect(publishedContent.site).not.toMatch(/Frappe|ERPNext/i);
+  });
 });
 
 describe("perfil de la landing", () => {
   it("usa el titular de posicionamiento y el puesto confirmado", () => {
     expect(perfil.personal.name).toBe("Samael Amaral");
-    expect(perfil.personal.headline).toBe(
-      "Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA",
-    );
-    expect(perfil.personal.headline).toBe(cv.headline);
+    expect(perfil.personal.headline).toBe("Sistemas, automatización e IA aplicada");
+    expect(perfil.personal.headlineLines.join(" ")).toBe(perfil.personal.headline);
     expect(perfil.personal.currentRole).toBe(
       "IT Support, Development & Automation Intern · Fast Market · ago 2026 – oct 2026",
     );
@@ -121,8 +124,8 @@ describe("perfil de la landing", () => {
     expect(dex?.link?.href).toBe("https://diosesmondex.onrender.com");
   });
 
-  it("tiene 9 habilidades con el nivel literal de perfil.md", () => {
-    expect(perfil.skills).toHaveLength(9);
+  it("tiene 8 habilidades con el nivel literal de perfil.md", () => {
+    expect(perfil.skills).toHaveLength(8);
 
     for (const skill of perfil.skills) {
       expect(SKILL_LEVELS).toContain(skill.level);
@@ -143,6 +146,20 @@ describe("perfil de la landing", () => {
     const uveg = perfil.education.find((item) => item.institution.includes("UVEG"));
     expect(uveg?.period).toBe("2023 – mayo 2026");
     expect(uveg?.detail).toContain("título en trámite");
+  });
+});
+
+describe("sistema multiagente del hero", () => {
+  it("lista los agentes de perfil.md en el orden del flujo", () => {
+    expect(perfil.agentSystem.coordinator.id).toBe("coordinador");
+    expect(perfil.agentSystem.agents.map((agent) => agent.id)).toEqual([
+      "lead",
+      "backend",
+      "frontend",
+      "devops",
+      "qa",
+      "seguridad",
+    ]);
   });
 });
 
