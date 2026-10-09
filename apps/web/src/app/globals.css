@@ -3,32 +3,91 @@
 @source "../../../../packages/ui/src/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
+/*
+ * Tokens del sitio (design doc §3.2, "menú en frío").
+ * Claro por defecto; oscuro con `prefers-color-scheme` salvo que el visitante elija
+ * otro tema (`data-theme` en <html>, ver shared/lib/theme.ts).
+ * Contraste AA verificado: texto ≥ 4.5:1 sobre --bg, --surface y cada relleno con su `--on-*`.
+ */
 :root {
-  --background: #f7f4ed;
-  --foreground: #111315;
-  --muted: #686f76;
-  --surface: rgba(255, 255, 255, 0.78);
+  color-scheme: light;
+  --bg: #f2f5fb;
+  --surface: #ffffff;
+  --ink: #060914;
+  --muted: #465069;
+  --line: #cbd3e3;
+  --line-strong: #8e99b3;
+  --accent: #0f3bea; /* texto y enlaces */
+  --pop: #00cff5; /* cian eléctrico, solo como relleno */
+  --on-pop: #060914;
+  --volt: #1f4bff; /* azul eléctrico */
+  --on-volt: #ffffff;
+  --violet: #5a23d8;
+  --on-violet: #ffffff;
+  --plane: #060914; /* plano de contraste extremo: siempre el opuesto al fondo */
+  --on-plane: #f2f5fb;
+  --plane-accent: #00cff5;
+  --plane-muted: #b4bdd3;
+  --halftone: rgba(31, 75, 255, 0.32);
+
+  /* Alias que usan /cv y packages/ui. */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --border: var(--line);
   --surface-strong: #ffffff;
-  --border: rgba(17, 19, 21, 0.12);
-  --accent: #0f766e;
-  --accent-strong: #115e59;
-  --signal: #d97706;
-  --danger: #dc2626;
+  --accent-strong: var(--accent);
+  --signal: var(--violet);
+  --danger: #c62828;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #08090a;
-    --foreground: #f5f7f8;
-    --muted: #9ca3af;
-    --surface: rgba(18, 22, 25, 0.76);
-    --surface-strong: #111518;
-    --border: rgba(245, 247, 248, 0.12);
-    --accent: #2dd4bf;
-    --accent-strong: #5eead4;
-    --signal: #f59e0b;
-    --danger: #f87171;
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #05070f;
+    --surface: #0d1226;
+    --ink: #eef3ff;
+    --muted: #a7b2cf;
+    --line: #1e2742;
+    --line-strong: #3e4b73;
+    --accent: #3fe3ff;
+    --pop: #22e1ff;
+    --on-pop: #05070f;
+    --volt: #3d63ff;
+    --on-volt: #ffffff;
+    --violet: #b49cff;
+    --on-violet: #05070f;
+    --plane: #eef3ff;
+    --on-plane: #05070f;
+    --plane-accent: #1f3fe0;
+    --plane-muted: #3b4560;
+    --halftone: rgba(34, 225, 255, 0.28);
+    --surface-strong: #121a35;
+    --danger: #ff8a80;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #05070f;
+  --surface: #0d1226;
+  --ink: #eef3ff;
+  --muted: #a7b2cf;
+  --line: #1e2742;
+  --line-strong: #3e4b73;
+  --accent: #3fe3ff;
+  --pop: #22e1ff;
+  --on-pop: #05070f;
+  --volt: #3d63ff;
+  --on-volt: #ffffff;
+  --violet: #b49cff;
+  --on-violet: #05070f;
+  --plane: #eef3ff;
+  --on-plane: #05070f;
+  --plane-accent: #1f3fe0;
+  --plane-muted: #3b4560;
+  --halftone: rgba(34, 225, 255, 0.28);
+  --surface-strong: #121a35;
+  --danger: #ff8a80;
 }
 
 * {
@@ -37,22 +96,22 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(90deg, rgba(127, 127, 127, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(127, 127, 127, 0.08) 1px, transparent 1px), var(--background);
-  background-size: 48px 48px;
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--accent) 35%, transparent);
+  background: var(--pop);
+  color: var(--on-pop);
 }
 
 a {
@@ -71,6 +130,7 @@ a {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
