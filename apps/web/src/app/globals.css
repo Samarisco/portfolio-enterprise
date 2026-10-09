@@ -3,32 +3,67 @@
 @source "../../../../packages/ui/src/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
+/*
+ * Tokens del sitio (design doc §3.2, "sistema en marcha").
+ * Claro por defecto; oscuro con `prefers-color-scheme` salvo que el visitante elija
+ * otro tema (`data-theme` en <html>, ver shared/lib/theme.ts).
+ * Contraste AA: --ink, --muted, --accent y --warn ≥ 4.5:1 sobre --bg y --surface.
+ */
 :root {
-  --background: #f7f4ed;
-  --foreground: #111315;
-  --muted: #686f76;
-  --surface: rgba(255, 255, 255, 0.78);
+  color-scheme: light;
+  --bg: #edeff4; /* niebla fría */
+  --surface: #f8f9fc;
+  --ink: #0d1020; /* tinta índigo */
+  --muted: #4a5068;
+  --line: #cdd2de;
+  --line-strong: #9aa1b5;
+  --accent: #3a28e0; /* ultramar */
+  --accent-soft: rgba(58, 40, 224, 0.1);
+  --on-accent: #ffffff;
+  --warn: #b03516; /* bermellón: prototipo */
+
+  /* Alias que usan /cv y packages/ui. */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --border: var(--line);
   --surface-strong: #ffffff;
-  --border: rgba(17, 19, 21, 0.12);
-  --accent: #0f766e;
-  --accent-strong: #115e59;
-  --signal: #d97706;
-  --danger: #dc2626;
+  --accent-strong: var(--accent);
+  --signal: var(--warn);
+  --danger: #c62828;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #08090a;
-    --foreground: #f5f7f8;
-    --muted: #9ca3af;
-    --surface: rgba(18, 22, 25, 0.76);
-    --surface-strong: #111518;
-    --border: rgba(245, 247, 248, 0.12);
-    --accent: #2dd4bf;
-    --accent-strong: #5eead4;
-    --signal: #f59e0b;
-    --danger: #f87171;
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #080a18;
+    --surface: #10132b;
+    --ink: #e9ebf7;
+    --muted: #a3a9c6;
+    --line: #262a4d;
+    --line-strong: #474d7a;
+    --accent: #a596ff;
+    --accent-soft: rgba(165, 150, 255, 0.12);
+    --on-accent: #0b0b22;
+    --warn: #ff9271;
+    --surface-strong: #151935;
+    --danger: #ff8a80;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #080a18;
+  --surface: #10132b;
+  --ink: #e9ebf7;
+  --muted: #a3a9c6;
+  --line: #262a4d;
+  --line-strong: #474d7a;
+  --accent: #a596ff;
+  --accent-soft: rgba(165, 150, 255, 0.12);
+  --on-accent: #0b0b22;
+  --warn: #ff9271;
+  --surface-strong: #151935;
+  --danger: #ff8a80;
 }
 
 * {
@@ -37,22 +72,22 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(90deg, rgba(127, 127, 127, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(127, 127, 127, 0.08) 1px, transparent 1px), var(--background);
-  background-size: 48px 48px;
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--accent) 35%, transparent);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 a {
@@ -71,6 +106,7 @@ a {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
