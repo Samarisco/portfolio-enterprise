@@ -92,69 +92,79 @@ el puesto real: `IT Support, Development & Automation Intern · Fast Market · a
 Se eliminan: las stats del hero, la sección Roadmap, los proyectos "CMS 3D" y "Dashboard responsive"
 y el resumen largo. Este último se reemplaza por 2 frases construidas solo con hechos (ver §3.3).
 
-### 3.2 Dirección visual: "sistema en marcha"
+### 3.2 Dirección visual: "menú en frío"
 
-> Reemplaza a la dirección "bitácora de operaciones" (papel cálido) el 9 oct 2026, a pedido de
-> Samael: quería un rediseño con impacto que transmita innovación, tecnología e IA. Se fusionan
-> aquí los PRs 3–5 de §8.
+> Historial: "bitácora de operaciones" (papel cálido) → "sistema en marcha" (9 oct 2026) →
+> **"menú en frío"** (9 oct 2026, a pedido de Samael: "me gusta mucho Persona 5 y su estética,
+> ¿podemos adaptar ese estilo punk urbano a algo profesional? Me gustan los colores del espectro
+> frío"). Los PRs 3–5 de §8 se entregan juntos.
 
-La idea: la página demuestra el trabajo en vez de describirlo. El hero muestra, en vivo, el
-sistema de ingeniería multiagente que Samael diseñó: un coordinador en el centro reparte el pedido
-a cada agente (lead, backend, frontend, devops, qa, seguridad) y el ciclo cierra con un pull
-request. Todo lo demás es sobrio y disciplinado: el riesgo visual se gasta en un solo lugar.
+La idea: el lenguaje gráfico de los menús de videojuego punk (planos inclinados, recortes, contraste
+extremo, energía) reinterpretado para un portafolio profesional y en paleta fría. **El estilo vive en
+los marcos, títulos y transiciones; el texto de cuerpo va siempre sobre color sólido y recto.**
 
-**Firma: grafo multiagente** (`components/agent-graph.tsx`, Client Component)
+**Derechos**: no se usa ningún asset, logo, personaje, fuente ni texto de Persona 5 / Atlus. Todo es
+CSS y SVG propio con fuentes libres de Google Fonts; solo se toma el lenguaje gráfico.
 
-- SVG propio + botones HTML posicionados sobre los nodos (sin librerías). Un pulso viaja por la
-  arista activa cada 2.4 s; al final del ciclo vuelve desde todos los agentes al coordinador.
-- El visitante puede elegir un agente (clic, hover o teclado); la lectura inferior dice qué hace.
-  Botón "Pausar/Reanudar" (WCAG 2.2.2). Solo corre si está en pantalla y la pestaña visible.
-- Con `prefers-reduced-motion: reduce` no hay recorrido automático ni botón de pausa; el grafo
-  queda estático y sigue siendo interactivo.
-- Los textos de cada agente están en `perfil.ts` (`agentSystem`) y pasan por las guardas de §6.
+**Firma: grafo multiagente** (`components/agent-graph.tsx`, Client Component). Se conserva como
+ancla narrativa: el sistema de ingeniería multiagente de Samael (coordinador → lead, backend,
+frontend, devops, qa, seguridad → pull request). Re-estilizado: el coordinador sobre un estallido
+dentado que gira, nodos como etiquetas inclinadas, el activo como recorte cian con sombra dura, y un
+pulso que viaja por la arista. Elegir agente con clic, hover o teclado; botón Pausar/Reanudar
+(WCAG 2.2.2). Con `prefers-reduced-motion` no hay recorrido automático.
+
+**Recursos gráficos** (todos propios)
+
+- Planos inclinados (`skewX(-12deg)`) en botones, chips, nav, etiquetas de fecha y nodos; la
+  etiqueta interior se endereza para leerse recta.
+- Titular del hero en 3 planos: invertido, limpio y cian con sombra dura.
+- **Letras recortadas** ("ransom note") solo en los `h2` de sección y en Contacto: cada letra alterna
+  4 recortes (Anton sobre plano, DM Serif Display itálica sobre cian, Anton con filete, serif sobre
+  azul eléctrico). El texto del `h2` es el mismo (`textContent`), sin `aria-label`.
+- Trama de medios tonos en un plano diagonal detrás del grafo (nunca detrás de texto de cuerpo) y en
+  la esquina derecha de la banda de contacto (oculta en móvil).
+- Destellos de 4 puntas (marca del header, nodos del registro, hero, contacto).
+- Tarjetas de proyecto con esquina recortada y sombra dura desplazada en azul eléctrico (cian al
+  pasar el puntero). Cifras y "Cómo trabajo con IA" en planos invertidos.
+- Contacto: banda invertida con borde superior en diagonal, una línea de texto y chips inclinados.
 
 **Tipografía** (`next/font/google`, autoalojada)
 
-- Titulares: **Bricolage Grotesque** variable (ejes `opsz` y `wdth`), 700–750, ancho 85–88 %, tracking
-  negativo. El `h1` "Sistemas, automatización e IA aplicada" va en 3 líneas a `clamp(2.9rem, …, 6.25rem)`;
-  la última en ultramar con un trazo tipo circuito que se dibuja al cargar.
-- Texto: **Instrument Sans**, 1.0625rem, interlineado 1.65.
-- Datos (rutas del grafo, fechas, estados, stack): **Martian Mono** al 87.5 % de ancho.
-- Inter y JetBrains Mono se conservan solo para la hoja de `/cv` (sin precarga).
+- Impacto: **Anton** (titular del hero, nombre, títulos de proyecto, recortes).
+- Recortes: **DM Serif Display** (normal e itálica), solo dentro de los `h2` recortados.
+- Texto: **Instrument Sans**. Datos: **Martian Mono** al 87.5 % de ancho.
+- Inter y JetBrains Mono quedan solo para `/cv` (sin precarga). Se quitó Bricolage Grotesque.
 
-**Paleta** (tokens en `globals.css`; los alias `--background/--foreground/--border` siguen para `/cv`)
+**Paleta fría** (tokens en `globals.css`; alias `--background/--foreground/--border` para `/cv`)
 
 | Token | Claro | Oscuro | Uso |
 |---|---|---|---|
-| `--bg` | `#EDEFF4` (niebla fría) | `#080A18` (índigo noche) | fondo |
-| `--surface` | `#F8F9FC` | `#10132B` | tarjetas, nodos |
-| `--ink` | `#0D1020` | `#E9EBF7` | texto principal |
-| `--muted` | `#4A5068` | `#A3A9C6` | texto secundario |
-| `--line` / `--line-strong` | `#CDD2DE` / `#9AA1B5` | `#262A4D` / `#474D7A` | reglas, aristas |
-| `--accent` | `#3A28E0` (ultramar) | `#A596FF` | grafo, enlaces, foco, estado |
-| `--warn` | `#B03516` (bermellón) | `#FF9271` | etiqueta "Prototipo" |
+| `--bg` | `#F2F5FB` | `#05070F` (negro azulado) | fondo |
+| `--surface` | `#FFFFFF` | `#0D1226` | tarjetas, nodos |
+| `--ink` / `--muted` | `#060914` / `#465069` | `#EEF3FF` / `#A7B2CF` | texto |
+| `--plane` / `--on-plane` | `#060914` / `#F2F5FB` | `#EEF3FF` / `#05070F` | plano de contraste extremo, siempre opuesto al fondo |
+| `--accent` | `#0F3BEA` | `#3FE3FF` | texto de acento, enlaces, foco |
+| `--pop` / `--on-pop` | `#00CFF5` / `#060914` | `#22E1FF` / `#05070F` | cian eléctrico, solo como relleno |
+| `--volt` / `--on-volt` | `#1F4BFF` / `#FFFFFF` | `#3D63FF` / `#FFFFFF` | azul eléctrico: sombras duras, estallido |
+| `--violet` / `--on-violet` | `#5A23D8` / `#FFFFFF` | `#B49CFF` / `#05070F` | etiqueta "Prototipo" |
 
-Contraste medido (WCAG): texto principal ≥ 15:1; `--muted` ≥ 6.9:1; `--accent` ≥ 7.1:1;
-`--warn` ≥ 5.4:1 sobre `--bg` y `--surface`, en ambos temas. Sin gradientes de color ni vidrio.
+En claro se invierte con criterio: el fondo es blanco frío y los planos de contraste pasan a negro
+azulado; el cian se mantiene como relleno con texto oscuro. Contraste medido (WCAG): texto ≥ 7.3:1,
+`--accent` ≥ 6.8:1, `--violet` ≥ 7.2:1; cada relleno con su `--on-*` ≥ 4.7:1 (el mínimo es
+`--on-volt` sobre `--volt` en oscuro, solo en letras grandes de los recortes). Ningún texto va sobre trama.
 
-**Layout**
+**Layout**: header fuera de `main` con regla de 2 px, skip link y botón de tema inclinado. Hero a
+dos columnas en `lg` (texto | grafo), apilado en móvil. Secciones con título recortado `sticky` a la
+izquierda y un dato verdadero en etiqueta (rango de fechas, conteo). Experiencia y Estudios como
+registro con destellos en una línea vertical. Habilidades en `<table>` semántica con indicador de 3
+segmentos inclinados (`aria-hidden`) y el nivel literal.
 
-- Header fijo (fuera de `main`) con marca (nodo + aristas), navegación en `lg`, botón de tema y
-  "Ver CV". Enlace "Saltar al contenido".
-- Hero a dos columnas en `lg` (texto | grafo); en móvil el grafo va debajo del texto.
-- Secciones con el título `sticky` a la izquierda (4/12) y un dato verdadero encima (rango de
-  fechas, conteo de proyectos). Experiencia y Estudios como registro con nodos en una línea vertical.
-- Proyectos: DiosesmonDex a todo el ancho con lectura de cifras "fuente: repositorio"; Traductor
-  (Prototipo, en `--warn`) y Portafolio en dos columnas.
-- Habilidades: `<table>` semántica con indicador de 3 segmentos `aria-hidden` y el nivel literal.
-- **Contacto compacto**: título, una línea ("¿Un proceso que automatizar o un sistema que montar?
-  Escríbeme.") y chips: correo, LinkedIn, GitHub, Ver CV, Descargar CV; CV y PDF en inglés en una
-  línea mínima.
-
-**Movimiento**: entrada escalonada del hero (CSS), trazo del titular, arranque de los nodos y el
-recorrido del grafo. Microinteracciones: subrayado que crece, flechas que se desplazan, chips que se
-elevan 1 px. `prefers-reduced-motion` lo desactiva todo. Se quitó `framer-motion`: la landing es
-Server Component salvo `theme-toggle.tsx` y `agent-graph.tsx`.
+**Movimiento**: entrada "cut-in" de cada línea del titular (recorte diagonal que se descubre),
+arranque de nodos, recorrido del grafo, destellos que titilan y, donde el navegador soporta
+`animation-timeline: view()`, los títulos de sección entran en diagonal al hacer scroll (mejora
+progresiva). Microinteracciones: plano cian que entra en diagonal tras los enlaces del menú, sombra
+dura que aparece en botones y chips, tarjetas que se elevan. `prefers-reduced-motion` lo desactiva
+todo. Sin `framer-motion`: la landing es Server Component salvo `theme-toggle.tsx` y `agent-graph.tsx`.
 
 ### 3.3 Mapeo de `perfil.md` a secciones
 
@@ -333,5 +343,7 @@ retrasa, el contenido correcto puede salir solo.
    automatización e IA aplicada"** (eje de `perfil.md`); debajo, el puesto real de Intern. Una
    prueba unitaria y una e2e fallan si "Frappe" vuelve a la landing. `/cv` no se toca en este
    cambio.
-10. **Dirección visual**: "sistema en marcha" (§3.2) reemplaza a "bitácora de operaciones". Los
-    PRs 3–5 de §8 se entregan juntos. El botón de tema (decisión 8) está en el header.
+10. **Dirección visual**: "menú en frío" (§3.2), inspirada en el lenguaje gráfico de los menús de
+    Persona 5 pero en paleta fría y sin ningún asset, fuente ni texto de Atlus. Reemplaza a
+    "sistema en marcha", que reemplazó a "bitácora de operaciones". Los PRs 3–5 de §8 se entregan
+    juntos. El botón de tema (decisión 8) está en el header.
