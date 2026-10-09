@@ -1,12 +1,20 @@
+export interface NavigationItem {
+  readonly label: string;
+  readonly href: string;
+}
+
+const navigation: readonly NavigationItem[] = [
+  { label: "Experiencia", href: "#experiencia" },
+  { label: "Proyectos", href: "#proyectos" },
+  { label: "Habilidades", href: "#habilidades" },
+  { label: "Estudios", href: "#estudios" },
+  { label: "Contacto", href: "#contacto" },
+];
+
 export const siteConfig = {
-  name: "Samael Amaral | Frontend Jr.",
+  name: "Samael Amaral",
   description:
-    "Portfolio full stack junior construido como un producto SaaS moderno para mostrar experiencia, proyectos, skills, contacto y roadmap profesional.",
-  navigation: [
-    { label: "Experiencia", href: "#experience" },
-    { label: "Proyectos", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Roadmap", href: "#roadmap" },
-    { label: "Contacto", href: "#contact" },
-  ],
+    "Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA. Busco roles de especialista en sistemas, soporte N2, automatización TI y desarrollo Frappe/ERPNext.",
+  /** Única fuente de la navegación de la landing. */
+  navigation,
 } as const;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { profile } from "../../landing/data/profile";
+import { perfil } from "../../landing/data/perfil";
 import { CV_PDF_URL, cv } from "./cv";
 import { CV_EN_PDF_URL, cvEn } from "./cv.en";
 import { cvByLocale, cvLocales, getCvMetadata } from "./locales";
@@ -42,7 +42,7 @@ describe("cv data", () => {
 
   it("points the landing CV link to the generated PDF", () => {
     expect(CV_PDF_URL).toBe("/CV-Samael-Amaral.pdf");
-    expect(profile.personal.resumeUrl).toBe(CV_PDF_URL);
+    expect(perfil.personal.resumeUrl).toBe(CV_PDF_URL);
   });
 });
 
