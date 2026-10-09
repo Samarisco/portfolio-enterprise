@@ -1,22 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Anton, DM_Serif_Display, Instrument_Sans, Inter, JetBrains_Mono, Martian_Mono } from "next/font/google";
+import { Anton, Instrument_Sans, Inter, JetBrains_Mono, Martian_Mono } from "next/font/google";
 import { themeInitScript } from "@/shared/lib/theme";
 import "./globals.css";
 
-/* Landing: titulares de impacto (Anton), recortes de letras (DM Serif Display), texto y datos. */
+/* Landing: titulares de impacto (Anton), texto y datos. */
 const display = Anton({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-display",
-  display: "swap",
-});
-
-const cutout = DM_Serif_Display({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-cutout",
   display: "swap",
 });
 
@@ -48,7 +40,7 @@ const mono = JetBrains_Mono({
   preload: false,
 });
 
-const fontVariables = [display, cutout, body, data, sans, mono].map((font) => font.variable).join(" ");
+const fontVariables = [display, body, data, sans, mono].map((font) => font.variable).join(" ");
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-enterprise.local"),

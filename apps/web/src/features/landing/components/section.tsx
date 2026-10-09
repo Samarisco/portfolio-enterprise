@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Ransom } from "./decor";
 
 interface SectionProps {
   readonly id: string;
@@ -10,7 +9,7 @@ interface SectionProps {
   readonly children: ReactNode;
 }
 
-/** Sección de la landing: título recortado fijo a la izquierda en escritorio y contenido a la derecha. */
+/** Sección de la landing: título en plano inclinado, fijo a la izquierda en escritorio y contenido a la derecha. */
 export function Section({ id, title, kicker, intro, children }: SectionProps) {
   const headingId = `${id}-titulo`;
 
@@ -19,7 +18,7 @@ export function Section({ id, title, kicker, intro, children }: SectionProps) {
       <div className="section__head cut-in">
         <p className="section__kicker">{kicker}</p>
         <h2 id={headingId} className="section__title">
-          <Ransom text={title} />
+          {title}
         </h2>
         {intro ? <p className="section__intro">{intro}</p> : null}
       </div>

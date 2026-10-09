@@ -118,9 +118,8 @@ pulso que viaja por la arista. Elegir agente con clic, hover o teclado; botón P
 - Planos inclinados (`skewX(-12deg)`) en botones, chips, nav, etiquetas de fecha y nodos; la
   etiqueta interior se endereza para leerse recta.
 - Titular del hero en 3 planos: invertido, limpio y cian con sombra dura.
-- **Letras recortadas** ("ransom note") solo en los `h2` de sección y en Contacto: cada letra alterna
-  4 recortes (Anton sobre plano, DM Serif Display itálica sobre cian, Anton con filete, serif sobre
-  azul eléctrico). El texto del `h2` es el mismo (`textContent`), sin `aria-label`.
+- Títulos de sección (`h2`) con el mismo tratamiento del hero: Anton en mayúsculas sobre un plano
+  inclinado con sombra cian; el texto es un único nodo.
 - Trama de medios tonos en un plano diagonal detrás del grafo (nunca detrás de texto de cuerpo) y en
   la esquina derecha de la banda de contacto (oculta en móvil).
 - Destellos de 4 puntas (marca del header, nodos del registro, hero, contacto).
@@ -130,8 +129,7 @@ pulso que viaja por la arista. Elegir agente con clic, hover o teclado; botón P
 
 **Tipografía** (`next/font/google`, autoalojada)
 
-- Impacto: **Anton** (titular del hero, nombre, títulos de proyecto, recortes).
-- Recortes: **DM Serif Display** (normal e itálica), solo dentro de los `h2` recortados.
+- Impacto: **Anton** (titular del hero, nombre, títulos de sección y de proyecto).
 - Texto: **Instrument Sans**. Datos: **Martian Mono** al 87.5 % de ancho.
 - Inter y JetBrains Mono quedan solo para `/cv` (sin precarga). Se quitó Bricolage Grotesque.
 
@@ -151,10 +149,10 @@ pulso que viaja por la arista. Elegir agente con clic, hover o teclado; botón P
 En claro se invierte con criterio: el fondo es blanco frío y los planos de contraste pasan a negro
 azulado; el cian se mantiene como relleno con texto oscuro. Contraste medido (WCAG): texto ≥ 7.3:1,
 `--accent` ≥ 6.8:1, `--violet` ≥ 7.2:1; cada relleno con su `--on-*` ≥ 4.7:1 (el mínimo es
-`--on-volt` sobre `--volt` en oscuro, solo en letras grandes de los recortes). Ningún texto va sobre trama.
+`--on-volt` sobre `--volt` en oscuro). Ningún texto va sobre trama.
 
 **Layout**: header fuera de `main` con regla de 2 px, skip link y botón de tema inclinado. Hero a
-dos columnas en `lg` (texto | grafo), apilado en móvil. Secciones con título recortado `sticky` a la
+dos columnas en `lg` (texto | grafo), apilado en móvil. Secciones con título en plano inclinado `sticky` a la
 izquierda y un dato verdadero en etiqueta (rango de fechas, conteo). Experiencia y Estudios como
 registro con destellos en una línea vertical. Habilidades en `<table>` semántica con indicador de 3
 segmentos inclinados (`aria-hidden`) y el nivel literal.

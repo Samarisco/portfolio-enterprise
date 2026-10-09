@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight, Download, FileText, Mail } from "lucide-react";
 import { perfil } from "../data/perfil";
-import { Ransom, Sparkle } from "./decor";
+import { Sparkle } from "./decor";
 
 interface ContactLink {
   readonly label: string;
@@ -35,7 +35,7 @@ export function Contact() {
       <Sparkle className="contact__spark" />
       <div className="contact__head">
         <h2 id="contacto-titulo" className="section__title">
-          <Ransom text="Contacto" />
+          Contacto
         </h2>
         <p className="contact__line">¿Un proceso que automatizar o un sistema que montar? Escríbeme.</p>
       </div>

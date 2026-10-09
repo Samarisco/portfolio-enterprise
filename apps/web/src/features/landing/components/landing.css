@@ -139,53 +139,6 @@
   font-size: 0.875rem;
 }
 
-/* Letras recortadas (solo títulos de sección). */
-.ransom {
-  display: inline-flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 0.03em;
-}
-
-.ransom__cut {
-  display: inline-block;
-  padding: 0.04em 0.1em 0;
-  line-height: 1;
-}
-
-.ransom__cut--0 {
-  background: var(--plane);
-  color: var(--on-plane);
-  font-family: var(--display);
-  text-transform: uppercase;
-  rotate: -4deg;
-}
-
-.ransom__cut--1 {
-  background: var(--pop);
-  color: var(--on-pop);
-  font-family: var(--font-cutout), Georgia, serif;
-  font-size: 1.08em;
-  font-style: italic;
-  rotate: 3deg;
-}
-
-.ransom__cut--2 {
-  border: 2px solid currentColor;
-  color: var(--ink);
-  font-family: var(--display);
-  text-transform: uppercase;
-  rotate: -1.5deg;
-}
-
-.ransom__cut--3 {
-  background: var(--volt);
-  color: var(--on-volt);
-  font-family: var(--font-cutout), Georgia, serif;
-  font-size: 0.92em;
-  rotate: 5deg;
-}
-
 /* ---------- Header ---------- */
 
 .site-header {
@@ -919,11 +872,21 @@
   transform: skewX(var(--skew));
 }
 
+/* Título de sección: mismo tratamiento que el hero (Anton en un plano inclinado con sombra cian). */
 .section__title {
+  width: fit-content;
   margin: 0;
+  padding: 0.12em 0.3em 0.04em;
+  background: var(--plane);
+  color: var(--on-plane);
+  font-family: var(--display);
   font-size: clamp(1.9rem, 1.2rem + 1.8vw, 2.75rem);
   font-weight: 400;
-  line-height: 1.1;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  transform: skewX(-6deg);
+  box-shadow: 0.14em 0.14em 0 0 var(--pop);
 }
 
 .section__intro {
@@ -1399,18 +1362,10 @@
   }
 }
 
+/* En la banda invertida, el plano del título se invierte. */
 .contact .section__title {
-  color: var(--on-plane);
-}
-
-/* En la banda invertida, los recortes usan los colores del plano. */
-.contact .ransom__cut--0 {
   background: var(--on-plane);
   color: var(--plane);
-}
-
-.contact .ransom__cut--2 {
-  color: var(--on-plane);
 }
 
 .contact__spark {
