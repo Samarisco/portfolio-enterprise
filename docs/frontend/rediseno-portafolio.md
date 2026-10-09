@@ -77,7 +77,7 @@ Una sola página, en este orden. Las anclas se mantienen cortas y en español.
 | # | Sección | Ancla | Contenido |
 |---|---|---|---|
 | 0 | Header | — | Nombre "Samael Amaral", navegación a las secciones y botón "Ver CV" (`/cv`). Enlace "Saltar al contenido". |
-| 1 | Hero | `#inicio` | `h1`: **Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA**. Debajo: "Samael Amaral", puesto confirmado (Intern en Fast Market), ubicación y disponibilidad. Botones: "Ver CV" y "Contacto". |
+| 1 | Hero | `#inicio` | `h1`: **Sistemas, automatización e IA aplicada** (ver §11, decisión 9). Debajo: "Samael Amaral", puesto confirmado (Intern en Fast Market), ubicación y disponibilidad. Botones: "Ver CV" y "Contacto". |
 | 2 | Experiencia | `#experiencia` | Fast Market (puesto Intern + 5 logros confirmados) y Mubea (Practicante de IT Support + 4 logros). |
 | 3 | Proyectos | `#proyectos` | DiosesmonDex como caso destacado; Traductor de señas con la etiqueta **Prototipo**; el propio portafolio como proyecto técnico. |
 | 4 | Habilidades | `#habilidades` | Tabla de 9 filas con el **nivel real literal** de `perfil.md`, más la frase "Cómo trabajo con IA". |
@@ -92,67 +92,69 @@ el puesto real: `IT Support, Development & Automation Intern · Fast Market · a
 Se eliminan: las stats del hero, la sección Roadmap, los proyectos "CMS 3D" y "Dashboard responsive"
 y el resumen largo. Este último se reemplaza por 2 frases construidas solo con hechos (ver §3.3).
 
-### 3.2 Dirección visual: "bitácora de operaciones"
+### 3.2 Dirección visual: "sistema en marcha"
 
-La idea: la página se lee como el registro de un área de sistemas que alguien montó desde cero.
-Es sobria, legible e informativa, y su "decoración" son datos con estructura: fechas en mono,
-etiquetas de estado y reglas finas. Nada de efectos de vidrio ni de gradientes.
+> Reemplaza a la dirección "bitácora de operaciones" (papel cálido) el 9 oct 2026, a pedido de
+> Samael: quería un rediseño con impacto que transmita innovación, tecnología e IA. Se fusionan
+> aquí los PRs 3–5 de §8.
 
-**Tipografía** (con `next/font/google`, autoalojada en el build, sin peticiones a terceros en runtime)
+La idea: la página demuestra el trabajo en vez de describirlo. El hero muestra, en vivo, el
+sistema de ingeniería multiagente que Samael diseñó: un coordinador en el centro reparte el pedido
+a cada agente (lead, backend, frontend, devops, qa, seguridad) y el ciclo cierra con un pull
+request. Todo lo demás es sobrio y disciplinado: el riesgo visual se gasta en un solo lugar.
 
-- Titulares: **IBM Plex Sans Condensed** 600. Es industrial y compacta, y aguanta bien un `h1`
-  largo de 3 segmentos separados por `·`. Tamaños: `h1` con `clamp(2.25rem, 5vw, 4rem)` y
-  `leading-[1.05]`; `h2` de 1.75rem.
-- Texto: **IBM Plex Sans** 400/500, 1.0625rem e interlineado 1.65. Medida máxima de 68 caracteres.
-- Datos (fechas, stack, niveles, etiquetas de sección): **IBM Plex Mono** 400/500, 0.8125rem,
-  `uppercase` y `tracking-[0.08em]` solo en las etiquetas.
-- Se quitan Inter y JetBrains Mono. Plex tiene buen soporte de acentos y "ñ".
+**Firma: grafo multiagente** (`components/agent-graph.tsx`, Client Component)
 
-**Paleta** (tokens CSS en `globals.css`; claro por defecto y oscuro con `prefers-color-scheme`)
+- SVG propio + botones HTML posicionados sobre los nodos (sin librerías). Un pulso viaja por la
+  arista activa cada 2.4 s; al final del ciclo vuelve desde todos los agentes al coordinador.
+- El visitante puede elegir un agente (clic, hover o teclado); la lectura inferior dice qué hace.
+  Botón "Pausar/Reanudar" (WCAG 2.2.2). Solo corre si está en pantalla y la pestaña visible.
+- Con `prefers-reduced-motion: reduce` no hay recorrido automático ni botón de pausa; el grafo
+  queda estático y sigue siendo interactivo.
+- Los textos de cada agente están en `perfil.ts` (`agentSystem`) y pasan por las guardas de §6.
+
+**Tipografía** (`next/font/google`, autoalojada)
+
+- Titulares: **Bricolage Grotesque** variable (ejes `opsz` y `wdth`), 700–750, ancho 85–88 %, tracking
+  negativo. El `h1` "Sistemas, automatización e IA aplicada" va en 3 líneas a `clamp(2.9rem, …, 6.25rem)`;
+  la última en ultramar con un trazo tipo circuito que se dibuja al cargar.
+- Texto: **Instrument Sans**, 1.0625rem, interlineado 1.65.
+- Datos (rutas del grafo, fechas, estados, stack): **Martian Mono** al 87.5 % de ancho.
+- Inter y JetBrains Mono se conservan solo para la hoja de `/cv` (sin precarga).
+
+**Paleta** (tokens en `globals.css`; los alias `--background/--foreground/--border` siguen para `/cv`)
 
 | Token | Claro | Oscuro | Uso |
 |---|---|---|---|
-| `--paper` | `#F3F0E8` | `#0F1114` | fondo |
-| `--ink` | `#17191D` | `#E9E6DF` | texto principal |
-| `--ink-muted` | `#585E68` | `#9EA3AB` | texto secundario (verificar AA ≥ 4.5:1) |
-| `--rule` | `#D6D1C4` | `#2A2E35` | reglas y bordes de 1 px |
-| `--ok` | `#1E7148` | `#5CCB91` | acento: estado "en uso", enlaces y foco |
-| `--warn` | `#9A4A0A` | `#F0AE4E` | etiqueta "Prototipo" |
-| `--surface` | `#FBFAF6` | `#161A1F` | filas destacadas, sin sombra |
+| `--bg` | `#EDEFF4` (niebla fría) | `#080A18` (índigo noche) | fondo |
+| `--surface` | `#F8F9FC` | `#10132B` | tarjetas, nodos |
+| `--ink` | `#0D1020` | `#E9EBF7` | texto principal |
+| `--muted` | `#4A5068` | `#A3A9C6` | texto secundario |
+| `--line` / `--line-strong` | `#CDD2DE` / `#9AA1B5` | `#262A4D` / `#474D7A` | reglas, aristas |
+| `--accent` | `#3A28E0` (ultramar) | `#A596FF` | grafo, enlaces, foco, estado |
+| `--warn` | `#B03516` (bermellón) | `#FF9271` | etiqueta "Prototipo" |
 
-Usar solo dos colores de acento con significado (`ok` = en uso o confirmado, `warn` = prototipo)
-refuerza la regla de contenido: lo que no está terminado se ve distinto.
+Contraste medido (WCAG): texto principal ≥ 15:1; `--muted` ≥ 6.9:1; `--accent` ≥ 7.1:1;
+`--warn` ≥ 5.4:1 sobre `--bg` y `--surface`, en ambos temas. Sin gradientes de color ni vidrio.
 
 **Layout**
 
-- Contenedor de 72rem y rejilla de 12 columnas en `lg`. En desktop, la etiqueta de cada sección
-  (`01 / EXPERIENCIA`, en mono) ocupa las columnas 1–3 y queda `sticky`, y el contenido va en
-  las 4–12. En móvil, una sola columna con la etiqueta arriba.
-- **Experiencia** como registro cronológico: cada puesto es una fila con la fecha en mono a la
-  izquierda, una regla vertical de 1 px y un punto `--ok`, y a la derecha empresa, puesto y logros
-  en lista. Sin tarjetas.
-- **Proyectos**: DiosesmonDex ocupa todo el ancho con tres bloques (qué es, qué tiene, stack) y una
-  franja de cifras verificables en mono con la nota "fuente: repositorio". El Traductor y el
-  Portafolio van en dos columnas, más compactos. El Traductor lleva la etiqueta `PROTOTIPO`
-  en `--warn`.
-- **Habilidades**: una tabla semántica (`<table>`) con las columnas Área y Nivel. El nivel va en
-  texto, más un indicador de 3 segmentos (Básico, Intermedio, Avanzado) marcado como
-  `aria-hidden`. En las filas con matiz (JS/TS y SQL) el texto completo del nivel aparece tal
-  cual y el indicador muestra el nivel principal, "Intermedio". Sin barras de porcentaje.
-- Se quitan el fondo de cuadrícula, `backdrop-blur`, las sombras grandes y los iconos decorativos.
-  Los iconos lucide se quedan solo en enlaces de contacto, con su texto visible.
+- Header fijo (fuera de `main`) con marca (nodo + aristas), navegación en `lg`, botón de tema y
+  "Ver CV". Enlace "Saltar al contenido".
+- Hero a dos columnas en `lg` (texto | grafo); en móvil el grafo va debajo del texto.
+- Secciones con el título `sticky` a la izquierda (4/12) y un dato verdadero encima (rango de
+  fechas, conteo de proyectos). Experiencia y Estudios como registro con nodos en una línea vertical.
+- Proyectos: DiosesmonDex a todo el ancho con lectura de cifras "fuente: repositorio"; Traductor
+  (Prototipo, en `--warn`) y Portafolio en dos columnas.
+- Habilidades: `<table>` semántica con indicador de 3 segmentos `aria-hidden` y el nivel literal.
+- **Contacto compacto**: título, una línea ("¿Un proceso que automatizar o un sistema que montar?
+  Escríbeme.") y chips: correo, LinkedIn, GitHub, Ver CV, Descargar CV; CV y PDF en inglés en una
+  línea mínima.
 
-**Movimiento**
-
-- Solo CSS. Al cargar, el hero aparece con una entrada de 240 ms (opacidad y 8 px en Y) y
-  escalonamiento de 60 ms. La regla vertical de Experiencia se dibuja con `scroll-timeline` donde
-  el navegador lo soporte; donde no, se muestra estática (mejora progresiva).
-- Hover y foco: subrayado que crece desde la izquierda en 150 ms. Foco visible con `outline` de
-  2 px en `--ok` y `offset` de 3 px.
-- `prefers-reduced-motion: reduce` desactiva todo. El bloque que ya existe en `globals.css` se
-  conserva.
-- Se elimina `framer-motion` de `apps/web`. La landing pasa a ser 100 % Server Components y deja
-  de haber JS de cliente en `/` (el `print-button` del CV no cambia).
+**Movimiento**: entrada escalonada del hero (CSS), trazo del titular, arranque de los nodos y el
+recorrido del grafo. Microinteracciones: subrayado que crece, flechas que se desplazan, chips que se
+elevan 1 px. `prefers-reduced-motion` lo desactiva todo. Se quitó `framer-motion`: la landing es
+Server Component salvo `theme-toggle.tsx` y `agent-graph.tsx`.
 
 ### 3.3 Mapeo de `perfil.md` a secciones
 
@@ -162,10 +164,10 @@ refuerza la regla de contenido: lo que no está terminado se ve distinto.
 | Ubicación: Apaseo el Grande, Guanajuato, México | Hero | Literal |
 | Disponibilidad: cambio de residencia; híbrida o presencial | Hero | "Disponible para cambio de residencia · híbrido o presencial" |
 | Titular de posicionamiento | Hero `h1`, `<title>`, OG | Literal |
-| Puestos a los que apunta hoy | Hero (línea secundaria) y meta description | Resumen: "Busco roles de especialista en sistemas, soporte N2, automatización TI y desarrollo Frappe/ERPNext". Los puestos "a mediano plazo" no se publican. |
+| Puestos a los que apunta hoy | Hero (línea secundaria) y meta description | Resumen: "Busco roles de especialista en sistemas, soporte N2, automatización TI y desarrollo asistido por IA". Los puestos "a mediano plazo" no se publican. |
 | Fast Market: Intern, ago 2026 – oct 2026 | Experiencia | Literal (ver pregunta 2 sobre "actual") |
 | Fast Market: contexto "único responsable de crear y operar el área de sistemas" | Experiencia | Literal, sin mencionar España |
-| Logros Fast Market: tickets Frappe (en uso), alertas por API y monitoreo, sistema multiagente, capacitación y reportes, soporte e incidencias | Experiencia | 5 bullets sin cifras. Multiagente con el verbo "Diseñé", sin afirmar que el área ya lo usa |
+| Logros Fast Market: sistema interno de tickets (en uso), alertas por API y monitoreo, sistema multiagente, capacitación y reportes, soporte e incidencias | Experiencia | 5 bullets sin cifras. Multiagente con el verbo "Diseñé", sin afirmar que el área ya lo usa |
 | Mubea: Practicante de IT Support, ene 2025 – ago 2025, más 4 logros | Experiencia | Literal, sin número de usuarios |
 | DiosesmonDex: qué es, funciones, stack, enlace | Proyectos (destacado) | Literal, con enlace a `https://diosesmondex.onrender.com` |
 | DiosesmonDex: 823 especies (rango 1–1013), 247 pruebas, fases 2–8 completadas del 3 al 5 de ago 2026 | Proyectos | Franja de cifras con la nota "fuente: repositorio". Sin cifra de usuarios |
@@ -181,8 +183,8 @@ refuerza la regla de contenido: lo que no está terminado se ve distinto.
 | `/cv`, `/cv/en`, PDF ES y EN | Header y contacto | Enlaces internos |
 
 Resumen del hero (2 frases, solo hechos, a validar por Samael): "Ingeniero en Sistemas
-Computacionales. En Fast Market creé el área de sistemas: el sistema de tickets sobre Frappe, las
-alertas automatizadas y la capacitación del equipo."
+Computacionales. En Fast Market creé el área de sistemas: el sistema interno de tickets e
+incidencias, las alertas automatizadas y la capacitación del equipo." (Sin Frappe, §11 decisión 9.)
 
 ### 3.4 Datos que NO se publican
 
@@ -324,3 +326,12 @@ retrasa, el contenido correcto puede salir solo.
    defecto sigue al sistema operativo; la elección se guarda en `localStorage` y se aplica antes
    del primer pintado (script inline en `<head>`, sin parpadeo). El botón es el único Client
    Component nuevo de la landing y se agrega en el PR 3, con prueba e2e de cambio y persistencia.
+9. **Frappe fuera de la landing** (9 oct 2026): Samael lo usó una vez y no representa su trabajo.
+   Se quita del titular, del resumen, de los puestos buscados y de Habilidades (quedan 8 filas,
+   como en `perfil.md`). El sistema de tickets se describe como "sistema interno de tickets e
+   incidencias", sin nombrar la herramienta. Nuevo titular de posicionamiento: **"Sistemas,
+   automatización e IA aplicada"** (eje de `perfil.md`); debajo, el puesto real de Intern. Una
+   prueba unitaria y una e2e fallan si "Frappe" vuelve a la landing. `/cv` no se toca en este
+   cambio.
+10. **Dirección visual**: "sistema en marcha" (§3.2) reemplaza a "bitácora de operaciones". Los
+    PRs 3–5 de §8 se entregan juntos. El botón de tema (decisión 8) está en el header.
