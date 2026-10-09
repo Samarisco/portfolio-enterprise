@@ -2,7 +2,7 @@ import { CV_PDF_URL } from "../../cv/data/cv";
 import { CV_EN_PDF_URL } from "../../cv/data/cv.en";
 
 /**
- * Contenido de la landing (`/`). Fuente de verdad: `C:\dev\datos\perfil.md`.
+ * Contenido de la landing (`/`). Fuente de verdad: perfil.md (privado).
  *
  * Página pública: solo hechos confirmados. No publicar teléfono, Gmail, el puesto
  * pendiente de nombramiento, la expansión a España ni cifras internas de las empresas.

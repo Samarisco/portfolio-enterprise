@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Samael Amaral | Frontend Developer Jr.",
     description:
-      "Portfolio profesional con proyectos full stack, APIs REST, frontend responsive, bases de datos y roadmap tecnico.",
+      "Portfolio profesional con proyectos full stack, APIs REST, frontend responsive y bases de datos.",
     type: "website",
     locale: "en_US",
   },

@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { findForbiddenContent, stripVectorGeometry } from "../src/shared/lib/forbidden-content";
 
 const HEADLINE = "Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA";
 const CURRENT_ROLE =
@@ -41,14 +42,10 @@ test("landing page does not publish forbidden data", async ({ page }) => {
   await page.goto("/");
 
   const visibleText = await page.locator("body").innerText();
-  const html = await page.content();
+  const html = stripVectorGeometry(await page.content());
 
-  expect(visibleText).not.toMatch(/\b\d{3}[\s.-]?\d{3}[\s.-]?\d{4}\b/);
-  expect(visibleText).not.toMatch(/\b(?:\d{1,3}\.){3}\d{1,3}\b/);
-  expect(visibleText).not.toMatch(/Roadmap|CMS 3D|Dashboard responsive/i);
+  // Todos los patrones sobre el texto visible y sobre el HTML completo (atributos incluidos).
+  expect(findForbiddenContent(visibleText)).toEqual([]);
+  expect(findForbiddenContent(html)).toEqual([]);
   expect(visibleText).not.toMatch(/Espa[ñn]a|Spain/i);
-
-  expect(html).not.toMatch(/gmail/i);
-  expect(html).not.toMatch(/M[eé]xico\s*[–-]\s*Espa[ñn]a|Mexico\s*[–-]\s*Spain/i);
-  expect(html).not.toMatch(/Pronto\s*Market/i);
 });

@@ -1,4 +1,9 @@
 import { describe, expect, it } from "vitest";
+import {
+  findForbiddenContent,
+  findPhoneLikeSequences,
+  stripVectorGeometry,
+} from "../../../shared/lib/forbidden-content";
 import { siteConfig } from "../../../shared/lib/site";
 import { CV_PDF_URL, cv } from "../../cv/data/cv";
 import { CV_EN_PDF_URL, cvEn } from "../../cv/data/cv.en";
@@ -16,27 +21,54 @@ const publishedContent = {
   cvEn: JSON.stringify(cvEn),
 } as const;
 
-const forbiddenPatterns: readonly { readonly name: string; readonly pattern: RegExp }[] = [
-  { name: "teléfono", pattern: /\b\d{3}[\s.-]?\d{3}[\s.-]?\d{4}\b/ },
-  { name: "teléfono internacional", pattern: /\+\d[\d\s-]{8,}\d/ },
-  { name: "Gmail", pattern: /gmail/i },
-  { name: "puesto pendiente (México–España)", pattern: /M[eé]xico\s*[–-]\s*Espa[ñn]a/i },
-  { name: "puesto pendiente (Mexico-Spain)", pattern: /Mexico\s*[–-]\s*Spain/i },
-  { name: "Pronto Market", pattern: /Pronto\s*Market/i },
-  { name: "IPv4", pattern: /\b(?:\d{1,3}\.){3}\d{1,3}\b/ },
-  { name: "Roadmap", pattern: /Roadmap/i },
-  { name: "CMS 3D", pattern: /CMS\s*3D/i },
-  { name: "Dashboard responsive", pattern: /Dashboard responsive/i },
-  { name: "ruta local", pattern: /[A-Z]:\\\\/ },
-];
+describe("detector de contenido prohibido", () => {
+  // Números ficticios (prefijo 555): nunca usar aquí el teléfono real.
+  it.each([
+    "(555) 010 0199",
+    "555 010 01 99",
+    "+52 (555) 010 0199",
+    "555.010.0199",
+    "5550100199",
+  ])("detecta el teléfono con formato %s", (sample) => {
+    expect(findPhoneLikeSequences(`Llámame al ${sample} hoy`)).toHaveLength(1);
+    expect(findForbiddenContent(sample)).toContain("teléfono");
+  });
+
+  it("no marca como teléfono fechas, rangos ni cifras del sitio", () => {
+    expect(
+      findPhoneLikeSequences(
+        "ago 2026 – oct 2026 · 2023 – mayo 2026 · rango 1–1013 · 823 especies · 247 pruebas · React 18",
+      ),
+    ).toEqual([]);
+  });
+
+  it("detecta enlaces tel:, Gmail, IPv4 y rutas locales", () => {
+    expect(findForbiddenContent('<a href="tel:+5255501001">x</a>')).toContain("enlace tel:");
+    expect(findForbiddenContent("ejemplo@gmail.com")).toContain("Gmail");
+    expect(findForbiddenContent("10.0.0.1")).toContain("IPv4");
+    expect(findForbiddenContent(JSON.stringify("D:\\carpeta"))).toContain("ruta local de Windows");
+  });
+});
+
+describe("stripVectorGeometry", () => {
+  it("quita la geometría de los iconos pero conserva enlaces y texto", () => {
+    const html =
+      '<svg viewBox="0 0 24 24"><path d="M22 13a18.15 18.15 0 0 1-20 0"></path></svg>' +
+      '<a href="tel:5550100199">(555) 010 0199</a>' +
+      '<script>self.__next_f.push([1,"{\\"d\\":\\"M20 10c0 4.993-5.539 10.193-7.399 11.799\\"}"])</script>';
+    const stripped = stripVectorGeometry(html);
+
+    expect(stripped).not.toContain("18.15");
+    expect(stripped).not.toContain("4.993");
+    expect(findForbiddenContent(stripped)).toEqual(["enlace tel:", "teléfono"]);
+  });
+});
 
 describe("contenido publicado: datos prohibidos", () => {
   for (const [source, text] of Object.entries(publishedContent)) {
-    for (const { name, pattern } of forbiddenPatterns) {
-      it(`${source} no contiene ${name}`, () => {
-        expect(text).not.toMatch(pattern);
-      });
-    }
+    it(`${source} no contiene datos prohibidos`, () => {
+      expect(findForbiddenContent(text)).toEqual([]);
+    });
   }
 
   it("la landing no menciona España ni el puesto de noviembre", () => {
