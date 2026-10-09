@@ -53,7 +53,7 @@ describe("cv data (English)", () => {
     expect(cvEn.lang).toBe("en-US");
     expect(cvEn.name).toBe(cv.name);
     expect(cvEn.headline).toBe(
-      "Systems & Automation Specialist · Frappe · AI-Assisted Development",
+      "Systems & Automation Specialist · AI-Assisted Development",
     );
     expect(cvEn.summary).not.toHaveLength(0);
     expect(Object.values(cvEn.labels.sections)).toEqual([

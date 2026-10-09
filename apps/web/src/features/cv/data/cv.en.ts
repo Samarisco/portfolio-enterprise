@@ -14,7 +14,7 @@ export const cvEn: CvData = {
   languageCode: "EN",
   ogLocale: "en_US",
   pageTitle: "Resume",
-  pageDescription: "Resume of Juan Samael Amaral Bravo: Systems & Automation Specialist · Frappe · AI-Assisted Development.",
+  pageDescription: "Resume of Juan Samael Amaral Bravo: Systems & Automation Specialist · AI-Assisted Development.",
   path: "/cv/en",
   pdfUrl: CV_EN_PDF_URL,
   labels: {
@@ -40,9 +40,9 @@ export const cvEn: CvData = {
     { label: "linkedin.com/in/samaelamaral", href: "https://www.linkedin.com/in/samaelamaral" },
     { label: "github.com/Samarisco", href: "https://github.com/Samarisco" },
   ],
-  headline: "Systems & Automation Specialist · Frappe · AI-Assisted Development",
+  headline: "Systems & Automation Specialist · AI-Assisted Development",
   summary:
-    "Computer Systems Engineer and sole owner of the IT function at Fast Market, where I built the Frappe-based ticketing system, API-driven automated alerts, and the team's technical training program. I build software with AI agents using my own workflow for planning, review, and testing. Seeking roles in advanced IT support, automation, and infrastructure.",
+    "Computer Systems Engineer and sole owner of the IT function at Fast Market, where I built the internal ticketing system, API-driven automated alerts, and the team's technical training program. I build software with AI agents using my own workflow for planning, review, and testing. Seeking roles in advanced IT support, automation, and infrastructure.",
   experience: [
     {
       company: "Fast Market",
@@ -61,7 +61,7 @@ export const cvEn: CvData = {
         },
       ],
       highlights: [
-        "Designed and built the internal ticketing and incident-management system on Frappe, tailored to daily operations and ready to scale, centralizing support-request tracking.",
+        "Designed and built the internal ticketing and incident-management system, tailored to daily operations and ready to scale, centralizing support-request tracking.",
         "Implemented API-driven automated alerts and monitoring for systems and services to detect incidents and track them to resolution.",
         "Designed a multi-agent engineering system (an orchestrator plus tech-lead, backend, frontend, QA, security, and DevOps agents) with standards, hooks, and a pull-request workflow for controlled AI-assisted development.",
         "Created the IT training program (manuals, videos, and guides) and ticket reporting to standardize the department's operations.",
@@ -110,7 +110,7 @@ export const cvEn: CvData = {
     {
       label: "Development & Automation",
       items:
-        "Frappe, Python, JavaScript/TypeScript, React, Node/Express, SQL (PostgreSQL, SQLite), MongoDB, Docker, Git/GitHub",
+        "Python, JavaScript/TypeScript, React, Node/Express, SQL (PostgreSQL, SQLite), MongoDB, Docker, Git/GitHub",
     },
     {
       label: "Applied AI",

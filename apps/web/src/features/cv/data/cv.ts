@@ -98,7 +98,7 @@ export const cv: CvData = {
   languageCode: "ES",
   ogLocale: "es_MX",
   pageTitle: "CV",
-  pageDescription: "Currículum de Juan Samael Amaral Bravo: Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA.",
+  pageDescription: "Currículum de Juan Samael Amaral Bravo: Especialista en Sistemas y Automatización · Desarrollo asistido por IA.",
   path: "/cv",
   pdfUrl: CV_PDF_URL,
   labels: {
@@ -123,9 +123,9 @@ export const cv: CvData = {
     { label: "linkedin.com/in/samaelamaral", href: "https://www.linkedin.com/in/samaelamaral" },
     { label: "github.com/Samarisco", href: "https://github.com/Samarisco" },
   ],
-  headline: "Especialista en Sistemas y Automatización · Frappe · Desarrollo asistido por IA",
+  headline: "Especialista en Sistemas y Automatización · Desarrollo asistido por IA",
   summary:
-    "Ingeniero en Sistemas Computacionales y único responsable del área de sistemas en Fast Market, donde construí el sistema de tickets sobre Frappe, las alertas automatizadas por API y la capacitación técnica del equipo. Desarrollo software con agentes de IA siguiendo un flujo propio de planificación, revisión y pruebas. Busco roles de soporte avanzado, automatización e infraestructura.",
+    "Ingeniero en Sistemas Computacionales y único responsable del área de sistemas en Fast Market, donde construí el sistema interno de tickets, las alertas automatizadas por API y la capacitación técnica del equipo. Desarrollo software con agentes de IA siguiendo un flujo propio de planificación, revisión y pruebas. Busco roles de soporte avanzado, automatización e infraestructura.",
   experience: [
     {
       company: "Fast Market",
@@ -145,7 +145,7 @@ export const cv: CvData = {
       highlights: [
         // BULLET PENDIENTE DE ACTIVAR junto con el puesto de España:
         // "Preparo la infraestructura tecnológica para la expansión a España (Pronto Market).",
-        "Diseñé y desarrollé el sistema interno de tickets e incidencias sobre Frappe, adaptado a la operación y preparado para crecer, centralizando el seguimiento de las solicitudes de soporte.",
+        "Diseñé y desarrollé el sistema interno de tickets e incidencias, adaptado a la operación y preparado para crecer, centralizando el seguimiento de las solicitudes de soporte.",
         "Implementé alertas automatizadas a partir de APIs y monitoreo de sistemas y servicios para detectar incidentes y dar seguimiento a su resolución.",
         "Diseñé un sistema de ingeniería multiagente (coordinador + agentes de liderazgo técnico, backend, frontend, QA, seguridad y DevOps) con normas, hooks y flujo de pull requests para desarrollar con IA de forma controlada.",
         "Creé el programa de capacitación en sistemas (manuales, videos y guías) y los reportes de tickets para estandarizar la operación del área.",
@@ -192,7 +192,7 @@ export const cv: CvData = {
     {
       label: "Desarrollo y automatización",
       items:
-        "Frappe, Python, JavaScript/TypeScript, React, Node/Express, SQL (PostgreSQL, SQLite), MongoDB, Docker, Git/GitHub",
+        "Python, JavaScript/TypeScript, React, Node/Express, SQL (PostgreSQL, SQLite), MongoDB, Docker, Git/GitHub",
     },
     {
       label: "IA aplicada",
