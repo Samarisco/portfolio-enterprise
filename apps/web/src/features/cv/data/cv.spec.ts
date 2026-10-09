@@ -29,7 +29,7 @@ describe("cv data", () => {
     const fastMarket = cv.experience.find((job) => job.company === "Fast Market");
 
     expect(fastMarket?.positions).toEqual([
-      { title: "IT Support, Development & Automation Intern (México)", period: "ago 2026 – actual" },
+      { title: "IT Support, Development & Automation Intern (México)", period: "ago 2026 – oct 2026" },
     ]);
     expect(renderedText).not.toContain("México–España");
     expect(renderedText).not.toContain("nov 2026");
@@ -86,7 +86,7 @@ describe("cv data (English)", () => {
     const fastMarket = cvEn.experience.find((job) => job.company === "Fast Market");
 
     expect(fastMarket?.positions).toEqual([
-      { title: "IT Support, Development & Automation Intern (Mexico)", period: "Aug 2026 – Present" },
+      { title: "IT Support, Development & Automation Intern (Mexico)", period: "Aug 2026 – Oct 2026" },
     ]);
     expect(renderedEnText).not.toMatch(/Spain/i);
     expect(renderedEnText).not.toContain("Pronto");

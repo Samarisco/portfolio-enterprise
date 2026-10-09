@@ -139,7 +139,7 @@ export const cv: CvData = {
         // },
         {
           title: "IT Support, Development & Automation Intern (México)",
-          period: "ago 2026 – actual",
+          period: "ago 2026 – oct 2026",
         },
       ],
       highlights: [

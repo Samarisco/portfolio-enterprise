@@ -57,7 +57,7 @@ export const cvEn: CvData = {
         // },
         {
           title: "IT Support, Development & Automation Intern (Mexico)",
-          period: "Aug 2026 – Present",
+          period: "Aug 2026 – Oct 2026",
         },
       ],
       highlights: [
