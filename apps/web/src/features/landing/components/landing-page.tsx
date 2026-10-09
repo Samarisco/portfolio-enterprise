@@ -329,7 +329,7 @@ export function LandingPage() {
             <ContactCard label="Email" value={personal.email} href={`mailto:${personal.email}`} />
             <ContactCard label="GitHub" value="Ver codigo" href={personal.githubUrl} />
             <ContactCard label="LinkedIn" value="Perfil profesional" href={personal.linkedinUrl} />
-            <ContactCard label="CV" value="Descargar resume" href={personal.resumeUrl} />
+            <ContactCard label="CV" value="Descargar CV" href={personal.resumeUrl} />
           </div>
         </div>
       </section>
