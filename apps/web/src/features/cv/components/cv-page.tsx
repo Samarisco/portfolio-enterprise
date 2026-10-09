@@ -1,24 +1,51 @@
 import Link from "next/link";
 import { ArrowLeft, Download } from "lucide-react";
 import { Button } from "@portfolio/ui/components/button";
-import { CV_PDF_URL, cv, type CvLink } from "../data/cv";
+import type { CvLink, CvLocale } from "../data/cv";
+import { cvByLocale, cvLocales } from "../data/locales";
 import { PrintButton } from "./print-button";
 import "./cv.css";
 
-export function CvPage() {
+interface CvPageProps {
+  readonly locale: CvLocale;
+}
+
+export function CvPage({ locale }: CvPageProps) {
+  const cv = cvByLocale[locale];
+  const { labels } = cv;
+
   return (
-    <div className="cv-root" lang="es-MX" data-cv-root>
-      <div className="cv-toolbar" role="region" aria-label="Acciones del CV">
+    <div className="cv-root" lang={cv.lang} data-cv-root>
+      <div className="cv-toolbar" role="region" aria-label={labels.toolbar}>
         <Link href="/" className="cv-toolbar__back">
           <ArrowLeft className="size-4" aria-hidden="true" />
-          Volver al portafolio
+          {labels.back}
         </Link>
         <div className="cv-toolbar__actions">
-          <PrintButton />
+          <nav className="cv-lang" aria-label={labels.languageSwitcher}>
+            {cvLocales.map((code) => {
+              const target = cvByLocale[code];
+              const current = code === locale;
+              return (
+                <Link
+                  key={code}
+                  href={target.path}
+                  hrefLang={target.lang}
+                  lang={target.lang}
+                  title={target.languageName}
+                  aria-current={current ? "page" : undefined}
+                  className="cv-lang__link"
+                >
+                  {target.languageCode}
+                </Link>
+              );
+            })}
+          </nav>
+          <PrintButton label={labels.print} />
           <Button asChild size="sm">
-            <a href={CV_PDF_URL} download>
+            <a href={cv.pdfUrl} download>
               <Download className="size-4" aria-hidden="true" />
-              Descargar PDF
+              {labels.download}
             </a>
           </Button>
         </div>
@@ -30,6 +57,12 @@ export function CvPage() {
           <p className="cv-headline">{cv.headline}</p>
           <address className="cv-contact">
             <span>{cv.location}</span>
+            {cv.locationNote ? (
+              <span className="cv-contact__item">
+                <Separator />
+                {cv.locationNote}
+              </span>
+            ) : null}
             <Separator />
             <a href={`mailto:${cv.email}`}>{cv.email}</a>
             {cv.links.map((link) => (
@@ -41,16 +74,16 @@ export function CvPage() {
           </address>
         </header>
 
-        <section className="cv-section" aria-labelledby="cv-perfil">
-          <h2 id="cv-perfil" className="cv-section__title">
-            Perfil
+        <section className="cv-section" aria-labelledby="cv-summary">
+          <h2 id="cv-summary" className="cv-section__title">
+            {labels.sections.summary}
           </h2>
           <p className="cv-summary">{cv.summary}</p>
         </section>
 
-        <section className="cv-section" aria-labelledby="cv-experiencia">
-          <h2 id="cv-experiencia" className="cv-section__title">
-            Experiencia
+        <section className="cv-section" aria-labelledby="cv-experience">
+          <h2 id="cv-experience" className="cv-section__title">
+            {labels.sections.experience}
           </h2>
           {cv.experience.map((job) => (
             <article key={job.company} className="cv-entry">
@@ -78,9 +111,9 @@ export function CvPage() {
           ))}
         </section>
 
-        <section className="cv-section" aria-labelledby="cv-proyectos">
-          <h2 id="cv-proyectos" className="cv-section__title">
-            Proyectos
+        <section className="cv-section" aria-labelledby="cv-projects">
+          <h2 id="cv-projects" className="cv-section__title">
+            {labels.sections.projects}
           </h2>
           {cv.projects.map((project) => (
             <article key={project.name} className="cv-entry">
@@ -105,9 +138,9 @@ export function CvPage() {
           ))}
         </section>
 
-        <section className="cv-section" aria-labelledby="cv-habilidades">
-          <h2 id="cv-habilidades" className="cv-section__title">
-            Habilidades
+        <section className="cv-section" aria-labelledby="cv-skills">
+          <h2 id="cv-skills" className="cv-section__title">
+            {labels.sections.skills}
           </h2>
           <dl className="cv-skills">
             {cv.skills.map((group) => (
@@ -119,9 +152,9 @@ export function CvPage() {
           </dl>
         </section>
 
-        <section className="cv-section" aria-labelledby="cv-educacion">
-          <h2 id="cv-educacion" className="cv-section__title">
-            Educación y certificaciones
+        <section className="cv-section" aria-labelledby="cv-education">
+          <h2 id="cv-education" className="cv-section__title">
+            {labels.sections.education}
           </h2>
           {cv.education.map((item) => (
             <article key={item.title} className="cv-entry cv-entry--compact">
@@ -137,9 +170,9 @@ export function CvPage() {
           ))}
         </section>
 
-        <section className="cv-section" aria-labelledby="cv-idiomas">
-          <h2 id="cv-idiomas" className="cv-section__title">
-            Idiomas
+        <section className="cv-section" aria-labelledby="cv-languages">
+          <h2 id="cv-languages" className="cv-section__title">
+            {labels.sections.languages}
           </h2>
           <p className="cv-summary">{cv.languages}</p>
         </section>
