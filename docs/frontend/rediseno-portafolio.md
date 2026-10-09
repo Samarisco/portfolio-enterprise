@@ -3,8 +3,8 @@
 | | |
 |---|---|
 | Autor | `lead` (agente), para Samael Amaral |
-| Revisores | Samael Amaral (responsable) · `seguridad` (datos personales publicados, dependencia nueva de pruebas) |
-| Estado | Aprobado con decisiones de §11  |
+| Revisores | Samael Amaral (responsable) · `seguridad` (datos personales publicados) · `qa` |
+| Estado | Implementado en `feat/rediseno-portafolio` (ver §12) |
 | Issue | (por crear) |
 | Rama base | `feat/cv-imprimible` (PR #1, sin merge todavía) |
 | Fuente de verdad | `C:\dev\datos\perfil.md` (actualizado el 2026-10-09) |
@@ -274,7 +274,7 @@ Los tipos se declaran con `interface` y `readonly`, como en `features/cv/data/cv
 | Vitest: navegación | `siteConfig.navigation` = `#experiencia, #proyectos, #habilidades, #estudios, #contacto` | `shared/lib/site.spec.ts` |
 | Playwright: narrativa | `h1` con el titular exacto; un solo `h1`; los 5 `h2` en orden; enlace "Ver CV" → `/cv`; `mailto:` correcto; etiqueta "Prototipo" visible en el Traductor | `e2e/landing.spec.ts` |
 | Playwright: contenido prohibido | El HTML renderizado de `/` no contiene teléfono, Gmail ni el puesto pendiente | `e2e/landing.spec.ts` |
-| Playwright: a11y | `@axe-core/playwright` sin violaciones `serious`/`critical` en `/` (claro y oscuro con `emulateMedia`) y en `/cv` | `e2e/a11y.spec.ts` |
+| Playwright: a11y | `@axe-core/playwright` sin violaciones `serious`/`critical` en `/` (claro y oscuro con `emulateMedia`) y en `/cv` | `e2e/a11y.spec.ts` **(pendiente, ver §12)** |
 | Playwright: movimiento | Con `reducedMotion: "reduce"` el hero es visible de inmediato | `e2e/landing.spec.ts` |
 | Playwright: metadata/SEO | `html[lang=es-MX]`; `<title>` y `description` nuevos; `og:locale=es_MX`; `canonical`; `robots.txt` y `sitemap.xml` responden 200 e incluyen `/`, `/cv`, `/cv/en` | `e2e/seo.spec.ts` |
 | Manual (`qa`) | Lighthouse móvil en `/` (objetivo ≥ 95 en A11y, Buenas prácticas y SEO; LCP < 2.5 s); navegación solo con teclado; zoom al 200 %; anchos de 360 px, 768 px y 1280 px | Informe en el PR |
@@ -345,3 +345,22 @@ retrasa, el contenido correcto puede salir solo.
     Persona 5 pero en paleta fría y sin ningún asset, fuente ni texto de Atlus. Reemplaza a
     "sistema en marcha", que reemplazó a "bitácora de operaciones". Los PRs 3–5 de §8 se entregan
     juntos. El botón de tema (decisión 8) está en el header.
+
+## 12. Estado de implementación (9 oct 2026)
+
+Todo se entregó en la rama `feat/rediseno-portafolio`, apilada sobre `feat/cv-imprimible`:
+
+| PR del plan (§8) | Estado |
+|---|---|
+| 1. Contenido veraz | Hecho. Más la decisión 9 (Frappe fuera de la landing) |
+| 2. Metadata y SEO | Hecho: `lang="es-MX"`, título y descripción con el posicionamiento, `og:locale=es_MX`, dominio canónico de la decisión 1, canonical en `/`, `/cv` y `/cv/en`, `robots.txt` y `sitemap.xml` (`shared/lib/metadata.ts`, `app/robots.ts`, `app/sitemap.ts`, `e2e/seo.spec.ts`). Las guardas de contenido prohibido cubren también la metadata y el `<head>` |
+| 3–5. Sistema visual y layout | Hecho y fusionado en uno, con la dirección "menú en frío" (§3.2). Se quitó `framer-motion` |
+| 6. Movimiento y accesibilidad | Movimiento hecho, con prueba e2e de `prefers-reduced-motion`. **Sin** `@axe-core/playwright`: no se agregó la dependencia |
+| 7. Verificación final | `qa` hizo una revisión de accesibilidad manual con axe: 0 violaciones |
+
+Pendientes:
+
+- Pruebas de accesibilidad automáticas (`e2e/a11y.spec.ts` con `@axe-core/playwright` en versión
+  fija, claro y oscuro). Requiere agregar la dependencia y la revisión de `seguridad`.
+- Landing en inglés: fuera de alcance (decisión 7); el CV en inglés está en `/cv/en`.
+- Lighthouse móvil (objetivo de §2) cuando haya despliegue en el dominio canónico.
