@@ -4,7 +4,7 @@
 |---|---|
 | Autor | `lead` (agente), para Samael Amaral |
 | Revisores | Samael Amaral (responsable) · `seguridad` (datos personales publicados, dependencia nueva de pruebas) |
-| Estado | Borrador, pendiente de aprobación |
+| Estado | Aprobado con decisiones de §11 (dominio pendiente) |
 | Issue | (por crear) |
 | Rama base | `feat/cv-imprimible` (PR #1, sin merge todavía) |
 | Fuente de verdad | `C:\dev\datos\perfil.md` (actualizado el 2026-10-09) |
@@ -307,17 +307,20 @@ retrasa, el contenido correcto puede salir solo.
 | `scroll-timeline` sin soporte en Safari/Firefox | `@supports`; sin él, la regla se ve estática |
 | Se cuela contenido no confirmado en futuras ediciones | Guardas de §6 en CI |
 
-## 11. Preguntas abiertas (para Samael)
+## 11. Decisiones (9 oct 2026)
 
-1. **Dominio canónico**: ¿`https://samael-dev.vercel.app` sigue siendo el de producción para
-   `metadataBase`, el canonical y el sitemap?
-2. **Periodo del Intern**: hoy (9 oct 2026) sigue vigente. ¿Se publica "ago 2026 – actual", como en
-   el CV, o "ago 2026 – oct 2026", como en `perfil.md`?
-3. **Titular**: ¿confirmas usar "Especialista en Sistemas y Automatización · …" como `h1` y título
-   del sitio, aunque el puesto con ese nombre aún no esté confirmado?
-4. **Resumen del hero**: ¿apruebas la frase de §3.3 o prefieres otra redacción?
-5. **DiosesmonDex**: ¿se publica "fases 2 a 8 completadas entre el 3 y el 5 de agosto de 2026"
-   tal cual, o se omite? (El CV lo resume como "en 3 días".)
-6. **Traductor de señas**: ¿se publica ya como Prototipo sin enlace, o esperamos al repo o video?
-7. **Landing en inglés**: ¿hace falta `/en` o basta con enlazar `/cv/en`?
-8. **Tema**: ¿claro por defecto siguiendo al sistema operativo (propuesta) o un tema fijo?
+1. **Dominio canónico**: el link actual no es `https://samael-dev.vercel.app`. **Pendiente**: Samael
+   pasa el dominio correcto. Bloquea solo el PR 2 (metadata/SEO).
+2. **Periodo del Intern**: se publica **"ago 2026 – oct 2026"**, como en `perfil.md`. El puesto
+   cambia en noviembre y se actualiza entonces. La prueba de consistencia con `cv.ts` no aplica
+   mientras el CV del PR #1 diga "actual".
+3. **Titular**: se usa como `h1` y título del sitio; es el titular definido en `perfil.md`, no un
+   cargo. Debajo va el puesto real de Intern.
+4. **Resumen del hero**: se usa la frase de §3.3.
+5. **DiosesmonDex**: se publican las fases y fechas tal cual (cifras verificables del repo).
+6. **Traductor de señas**: se publica como Prototipo, sin enlace, hasta tener repo o video.
+7. **Landing en inglés**: fuera de alcance; basta con enlazar `/cv/en`.
+8. **Tema**: claro y oscuro **seleccionable por el visitante** con un botón en el header. Por
+   defecto sigue al sistema operativo; la elección se guarda en `localStorage` y se aplica antes
+   del primer pintado (script inline en `<head>`, sin parpadeo). El botón es el único Client
+   Component nuevo de la landing y se agrega en el PR 3, con prueba e2e de cambio y persistencia.
