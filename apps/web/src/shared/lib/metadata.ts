@@ -34,6 +34,11 @@ export const siteMetadata: Metadata = {
     locale: "es_MX",
     siteName: siteConfig.name,
   },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description: siteConfig.description,
+  },
   robots: {
     index: true,
     follow: true,

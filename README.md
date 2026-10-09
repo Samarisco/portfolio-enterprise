@@ -21,7 +21,11 @@ con la web pública (`apps/web`), una API NestJS (`apps/api`) y paquetes compart
   (datos) en la landing; Inter y JetBrains Mono en la hoja del CV.
 - Metadata y SEO: `lang="es-MX"`, Open Graph `es_MX`, canonical por ruta, `robots.txt` y
   `sitemap.xml`.
-- Iconos: `lucide-react`. Pruebas: Vitest (unitarias) y Playwright (e2e en escritorio y móvil).
+- Icono del sitio (`app/icon.svg`, `app/apple-icon.tsx`) e imágenes para compartir de 1200×630
+  (`opengraph-image.tsx` y `twitter-image.tsx` en `/`, `/cv` y `/cv/en`) generadas en el build con
+  `next/og`. Usan los TTF de Anton e Instrument Sans guardados en `src/shared/og/fonts/` (licencia
+  OFL incluida), porque Satori no lee woff2; se leen del disco al compilar, sin peticiones externas.
+- Iconos de interfaz: `lucide-react`. Pruebas: Vitest (unitarias) y Playwright (e2e en escritorio y móvil).
 
 Dirección visual y decisiones: [`docs/frontend/rediseno-portafolio.md`](docs/frontend/rediseno-portafolio.md).
 

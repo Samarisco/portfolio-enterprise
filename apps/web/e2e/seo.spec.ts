@@ -51,3 +51,46 @@ test("robots.txt and sitemap.xml list the public routes", async ({ request }) =>
     expect(xml).toContain(`<loc>${loc}</loc>`);
   }
 });
+
+/** Lee ancho y alto de la cabecera IHDR de un PNG. */
+function pngSize(buffer: Buffer): { width: number; height: number } {
+  return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+}
+
+for (const path of ["/", "/cv", "/cv/en"]) {
+  test(`share images of ${path} are 1200×630 PNGs with alt text`, async ({ page, request }) => {
+    await page.goto(path);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+      "content",
+      "summary_large_image",
+    );
+
+    for (const name of ["og:image", "twitter:image"]) {
+      const attr = name.startsWith("og:") ? "property" : "name";
+      const content = await page.locator(`meta[${attr}="${name}"]`).getAttribute("content");
+      expect(content, name).toBeTruthy();
+      await expect(page.locator(`meta[${attr}="${name}:alt"]`)).toHaveAttribute("content", /.+/);
+
+      // En desarrollo Next usa el host local; en producción, el dominio canónico.
+      const url = new URL(content ?? "");
+      const response = await request.get(`${url.pathname}${url.search}`);
+      expect(response.status()).toBe(200);
+      expect(response.headers()["content-type"]).toContain("image/png");
+      expect(pngSize(await response.body())).toEqual({ width: 1200, height: 630 });
+    }
+  });
+}
+
+test("site icons respond", async ({ page, request }) => {
+  await page.goto("/");
+
+  const icon = await page.locator('link[rel="icon"]').first().getAttribute("href");
+  const iconResponse = await request.get(icon ?? "");
+  expect(iconResponse.status()).toBe(200);
+  expect(iconResponse.headers()["content-type"]).toContain("image/svg+xml");
+
+  const apple = await page.locator('link[rel="apple-touch-icon"]').getAttribute("href");
+  const appleResponse = await request.get(apple ?? "");
+  expect(appleResponse.status()).toBe(200);
+  expect(pngSize(await appleResponse.body())).toEqual({ width: 180, height: 180 });
+});

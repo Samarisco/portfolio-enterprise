@@ -358,6 +358,11 @@ Todo se entregó en la rama `feat/rediseno-portafolio`, apilada sobre `feat/cv-i
 | 6. Movimiento y accesibilidad | Movimiento hecho, con prueba e2e de `prefers-reduced-motion`. **Sin** `@axe-core/playwright`: no se agregó la dependencia |
 | 7. Verificación final | `qa` hizo una revisión de accesibilidad manual con axe: 0 violaciones |
 
+Además: icono propio (destello cian sobre plano inclinado con sombra azul, `app/icon.svg` y
+`app/apple-icon.tsx`) e imágenes Open Graph/Twitter de 1200×630 para `/`, `/cv` y `/cv/en`
+(`shared/og/`), con `twitter:card=summary_large_image`. Sus textos pasan por las guardas
+(`og-content.spec.ts`) y `e2e/seo.spec.ts` verifica que respondan como PNG de 1200×630.
+
 Pendientes:
 
 - Pruebas de accesibilidad automáticas (`e2e/a11y.spec.ts` con `@axe-core/playwright` en versión
